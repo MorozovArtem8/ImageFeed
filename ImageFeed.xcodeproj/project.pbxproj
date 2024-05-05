@@ -7,21 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC1473BC2BE7EC0600B81250 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1473BB2BE7EC0600B81250 /* ImagesListCell.swift */; };
+		AC3297AE2BE8071F00411DC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC3297AD2BE8071F00411DC9 /* Assets.xcassets */; };
 		AC8710CC2BE6584F00387147 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8710CB2BE6584F00387147 /* AppDelegate.swift */; };
 		AC8710CE2BE6584F00387147 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8710CD2BE6584F00387147 /* SceneDelegate.swift */; };
-		AC8710D02BE6584F00387147 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8710CF2BE6584F00387147 /* ViewController.swift */; };
+		AC8710D02BE6584F00387147 /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8710CF2BE6584F00387147 /* ImagesListViewController.swift */; };
 		AC8710D32BE6584F00387147 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = AC8710D22BE6584F00387147 /* Base */; };
-		AC8710D52BE6585000387147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC8710D42BE6585000387147 /* Assets.xcassets */; };
 		AC8710D82BE6585000387147 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = AC8710D72BE6585000387147 /* Base */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AC1473BB2BE7EC0600B81250 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
+		AC3297AD2BE8071F00411DC9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC8710C82BE6584F00387147 /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC8710CB2BE6584F00387147 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC8710CD2BE6584F00387147 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		AC8710CF2BE6584F00387147 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AC8710CF2BE6584F00387147 /* ImagesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListViewController.swift; sourceTree = "<group>"; };
 		AC8710D22BE6584F00387147 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		AC8710D42BE6585000387147 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC8710D72BE6585000387147 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AC8710D92BE6585000387147 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -37,6 +39,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC1473BD2BE7EC3800B81250 /* ImagesList */ = {
+			isa = PBXGroup;
+			children = (
+				AC1473BB2BE7EC0600B81250 /* ImagesListCell.swift */,
+				AC8710CF2BE6584F00387147 /* ImagesListViewController.swift */,
+			);
+			path = ImagesList;
+			sourceTree = "<group>";
+		};
 		AC8710BF2BE6584F00387147 = {
 			isa = PBXGroup;
 			children = (
@@ -56,13 +67,13 @@
 		AC8710CA2BE6584F00387147 /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				AC1473BD2BE7EC3800B81250 /* ImagesList */,
 				AC8710CB2BE6584F00387147 /* AppDelegate.swift */,
 				AC8710CD2BE6584F00387147 /* SceneDelegate.swift */,
-				AC8710CF2BE6584F00387147 /* ViewController.swift */,
 				AC8710D12BE6584F00387147 /* Main.storyboard */,
-				AC8710D42BE6585000387147 /* Assets.xcassets */,
 				AC8710D62BE6585000387147 /* LaunchScreen.storyboard */,
 				AC8710D92BE6585000387147 /* Info.plist */,
+				AC3297AD2BE8071F00411DC9 /* Assets.xcassets */,
 			);
 			path = ImageFeed;
 			sourceTree = "<group>";
@@ -125,8 +136,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC8710D52BE6585000387147 /* Assets.xcassets in Resources */,
 				AC8710D82BE6585000387147 /* Base in Resources */,
+				AC3297AE2BE8071F00411DC9 /* Assets.xcassets in Resources */,
 				AC8710D32BE6584F00387147 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,7 +149,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC8710D02BE6584F00387147 /* ViewController.swift in Sources */,
+				AC8710D02BE6584F00387147 /* ImagesListViewController.swift in Sources */,
+				AC1473BC2BE7EC0600B81250 /* ImagesListCell.swift in Sources */,
 				AC8710CC2BE6584F00387147 /* AppDelegate.swift in Sources */,
 				AC8710CE2BE6584F00387147 /* SceneDelegate.swift in Sources */,
 			);
