@@ -14,6 +14,7 @@
 		AC8710D02BE6584F00387147 /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8710CF2BE6584F00387147 /* ImagesListViewController.swift */; };
 		AC8710D32BE6584F00387147 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = AC8710D22BE6584F00387147 /* Base */; };
 		AC8710D82BE6585000387147 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = AC8710D72BE6585000387147 /* Base */; };
+		ACC20EED2BEAB4A1008373BC /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC20EEC2BEAB4A1008373BC /* GradientView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		AC8710D22BE6584F00387147 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AC8710D72BE6585000387147 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AC8710D92BE6585000387147 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACC20EEC2BEAB4A1008373BC /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 		AC8710BF2BE6584F00387147 = {
 			isa = PBXGroup;
 			children = (
+				ACC20EEB2BEAB46F008373BC /* Helpers */,
 				AC8710CA2BE6584F00387147 /* ImageFeed */,
 				AC8710C92BE6584F00387147 /* Products */,
 			);
@@ -76,6 +79,14 @@
 				AC3297AD2BE8071F00411DC9 /* Assets.xcassets */,
 			);
 			path = ImageFeed;
+			sourceTree = "<group>";
+		};
+		ACC20EEB2BEAB46F008373BC /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				ACC20EEC2BEAB4A1008373BC /* GradientView.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,6 +162,7 @@
 			files = (
 				AC8710D02BE6584F00387147 /* ImagesListViewController.swift in Sources */,
 				AC1473BC2BE7EC0600B81250 /* ImagesListCell.swift in Sources */,
+				ACC20EED2BEAB4A1008373BC /* GradientView.swift in Sources */,
 				AC8710CC2BE6584F00387147 /* AppDelegate.swift in Sources */,
 				AC8710CE2BE6584F00387147 /* SceneDelegate.swift in Sources */,
 			);

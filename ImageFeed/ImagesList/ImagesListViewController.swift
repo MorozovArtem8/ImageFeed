@@ -27,6 +27,7 @@ final class ImagesListViewController: UIViewController {
         cell.cellImageView.image = cellMainImage
         cell.cellLikeButton.setImage(cellFavoriteImage, for: .normal)
         cell.cellDateLabel.text = dateFormatter.string(from: Date())
+        
     }
     
     
