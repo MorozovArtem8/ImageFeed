@@ -19,18 +19,6 @@ final class ImagesListViewController: UIViewController {
         
     }
     
-    private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
-        guard let cellMainImage = UIImage(named: "\(indexPath.row)"),
-              let cellFavoriteImage = UIImage(named: indexPath.row % 2 == 0 ? "like_button_on" : "like_button_off")
-        else {return}
-        
-        cell.cellImageView.image = cellMainImage
-        cell.cellLikeButton.setImage(cellFavoriteImage, for: .normal)
-        cell.cellDateLabel.text = dateFormatter.string(from: Date())
-        
-    }
-    
-    
 }
 
 extension ImagesListViewController: UITableViewDataSource {
@@ -45,8 +33,10 @@ extension ImagesListViewController: UITableViewDataSource {
         guard let imageListCell = cell as? ImagesListCell else {
             return UITableViewCell()
         }
-        
-        configCell(for: imageListCell, with: indexPath)
+        let cellMainImage = UIImage(named: photosName[indexPath.row])
+        let cellDate = dateFormatter.string(from: Date())
+        let isLiked = indexPath.row % 2 == 0
+        imageListCell.configureCell(image: cellMainImage ?? UIImage(), date: cellDate, isLiked: isLiked)
         
         return imageListCell
     }
