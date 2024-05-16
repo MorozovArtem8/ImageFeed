@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="LOw-9O-D0B">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -8,6 +8,28 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Tab Bar Controller-->
+        <scene sceneID="vs8-RR-cxr">
+            <objects>
+                <tabBarController id="LOw-9O-D0B" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KtX-Uf-FIJ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="0.0" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <tabBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        </tabBarAppearance>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Inb-kK-n9d"/>
+                        <segue destination="AfJ-ku-HYb" kind="relationship" relationship="viewControllers" id="TWI-GX-mfM"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4oi-Ym-UKh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1069" y="-149"/>
+        </scene>
         <!--ImageList-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -29,6 +51,7 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1KB-hR-foH" userLabel="Cell Image">
                                                     <rect key="frame" x="16" y="4" width="361" height="176"/>
+                                                    <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="16"/>
@@ -111,13 +134,14 @@
                             <constraint firstItem="6dI-Pu-Dkd" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="z5z-bc-ubc"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="tab_editorial_active" id="Cor-cH-rKd"/>
                     <connections>
                         <outlet property="tableView" destination="6dI-Pu-Dkd" id="9gg-xM-xgA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="130.53435114503816" y="-34.507042253521128"/>
+            <point key="canvasLocation" x="-82" y="-312"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="Xyz-lu-3sx">
@@ -128,7 +152,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yBk-4F-6TJ">
-                                <rect key="frame" x="18" y="90.999999999999986" width="357" height="163.66666666666663"/>
+                                <rect key="frame" x="18" y="91" width="357" height="159"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="181" translatesAutoresizingMaskIntoConstraints="NO" id="qbm-Lc-W7N">
                                         <rect key="frame" x="0.0" y="0.0" width="333" height="70"/>
@@ -159,13 +183,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@ekaterina_nov" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JPX-fr-ob3" userLabel="UserEmailLabel">
-                                        <rect key="frame" x="0.0" y="113.66666666666666" width="122.33333333333333" height="20.333333333333343"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="0.0" y="113.66666666666666" width="97" height="15.666666666666657"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.68235294117647061" green="0.68627450980392157" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello, world!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zuc-cW-Cb9" userLabel="UserDesriptionLabel">
-                                        <rect key="frame" x="0.0" y="142" width="99.666666666666671" height="21.666666666666657"/>
+                                        <rect key="frame" x="0.0" y="137.33333333333334" width="99.666666666666671" height="21.666666666666657"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -187,6 +211,7 @@
                             <constraint firstItem="yBk-4F-6TJ" firstAttribute="top" secondItem="5Jh-M1-DXL" secondAttribute="top" constant="32" id="uPY-MV-p28"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="tab_profile_active" id="ah3-dc-VWp"/>
                     <connections>
                         <outlet property="exitButton" destination="Mbz-T1-6y3" id="c4O-cp-ggg"/>
                         <outlet property="profilePhotoImageView" destination="cVV-Rt-uag" id="OEV-NF-SWx"/>
@@ -197,12 +222,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1qX-aX-dgu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1113.7404580152672" y="-45.070422535211272"/>
+            <point key="canvasLocation" x="-44" y="358"/>
         </scene>
     </scenes>
     <resources>
         <image name="like_button_on" width="42" height="42"/>
         <image name="logout_button" width="44" height="44"/>
         <image name="profile_photo" width="140" height="140"/>
+        <image name="tab_editorial_active" width="30" height="30"/>
+        <image name="tab_profile_active" width="30" height="30"/>
     </resources>
 </document>
