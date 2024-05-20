@@ -48,8 +48,8 @@
 		AC1473BD2BE7EC3800B81250 /* ImagesList */ = {
 			isa = PBXGroup;
 			children = (
-				AC97BB9C2BF8A05500B194F4 /* FullScreenPhoto */,
 				AC1473BB2BE7EC0600B81250 /* ImagesListCell.swift */,
+				AC97BB9D2BF8A06F00B194F4 /* SingleImageViewController.swift */,
 				AC8710CF2BE6584F00387147 /* ImagesListViewController.swift */,
 			);
 			path = ImagesList;
@@ -90,7 +90,6 @@
 		AC97BB9C2BF8A05500B194F4 /* FullScreenPhoto */ = {
 			isa = PBXGroup;
 			children = (
-				AC97BB9D2BF8A06F00B194F4 /* SingleImageViewController.swift */,
 			);
 			path = FullScreenPhoto;
 			sourceTree = "<group>";
@@ -99,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				AC489E1D2BF6845C001227EA /* ProfileViewController.swift */,
+				AC97BB9C2BF8A05500B194F4 /* FullScreenPhoto */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -343,6 +343,8 @@
 				DEVELOPMENT_TEAM = D4R9788Y8X;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ImageFeed/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -376,6 +378,8 @@
 				DEVELOPMENT_TEAM = D4R9788Y8X;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ImageFeed/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
