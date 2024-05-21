@@ -48,8 +48,8 @@
 		AC1473BD2BE7EC3800B81250 /* ImagesList */ = {
 			isa = PBXGroup;
 			children = (
+				ACEEA92C2BFD1B58000C7848 /* SingleImage */,
 				AC1473BB2BE7EC0600B81250 /* ImagesListCell.swift */,
-				AC97BB9D2BF8A06F00B194F4 /* SingleImageViewController.swift */,
 				AC8710CF2BE6584F00387147 /* ImagesListViewController.swift */,
 			);
 			path = ImagesList;
@@ -109,6 +109,14 @@
 				ACC20EEC2BEAB4A1008373BC /* GradientView.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		ACEEA92C2BFD1B58000C7848 /* SingleImage */ = {
+			isa = PBXGroup;
+			children = (
+				AC97BB9D2BF8A06F00B194F4 /* SingleImageViewController.swift */,
+			);
+			path = SingleImage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
