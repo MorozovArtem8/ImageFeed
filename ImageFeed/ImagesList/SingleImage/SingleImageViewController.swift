@@ -20,12 +20,20 @@ final class SingleImageViewController: UIViewController {
         return zoomingTap
     }()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureScrollViewSettings()
         
+    }
+    //MARK: @IBAction func
+    @IBAction private func didTapBackButton() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction private func didTapShareButton() {
+        guard let image else {return}
+        let share = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        present(share, animated: true)
     }
     
     private func configureScrollViewSettings() {
@@ -38,16 +46,6 @@ final class SingleImageViewController: UIViewController {
         
         imageView.addGestureRecognizer(zoomingTap)
         imageView.isUserInteractionEnabled = true
-    }
-    
-    @IBAction private func didTapBackButton() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction private func didTapShareButton() {
-        guard let image else {return}
-        let share = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-        present(share, animated: true)
     }
     
     @objc private func handleZoomingTap(sender: UITapGestureRecognizer) {
@@ -79,11 +77,7 @@ final class SingleImageViewController: UIViewController {
         return zoomRect
     }
     
-    
 }
-
-
-
 
 extension SingleImageViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
@@ -116,7 +110,6 @@ extension SingleImageViewController: UIScrollViewDelegate {
         let yOffset = max((scrollViewSize.height - scrollView.contentSize.height) / 2, 0)
         scrollView.contentInset = UIEdgeInsets(top: yOffset, left: xOffset, bottom: 0, right: 0)
     }
-    
     
 }
 
