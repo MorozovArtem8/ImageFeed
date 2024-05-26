@@ -87,18 +87,10 @@
 			path = ImageFeed;
 			sourceTree = "<group>";
 		};
-		AC97BB9C2BF8A05500B194F4 /* FullScreenPhoto */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = FullScreenPhoto;
-			sourceTree = "<group>";
-		};
 		ACA9727F2BF68BEF00AC8F77 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				AC489E1D2BF6845C001227EA /* ProfileViewController.swift */,
-				AC97BB9C2BF8A05500B194F4 /* FullScreenPhoto */,
 			);
 			path = Profile;
 			sourceTree = "<group>";

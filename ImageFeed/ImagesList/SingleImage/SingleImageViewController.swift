@@ -4,7 +4,7 @@ final class SingleImageViewController: UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var scrollView: UIScrollView!
     
-    var currentImageZoomScale: CGFloat = 0 // Переменная для хранения параметра дефолтного скейла конкретной картинки (для функции зума по двойному тапу возвращаем в исходное состояние после увеличения)
+    private var currentImageZoomScale: CGFloat = 0 // Переменная для хранения параметра дефолтного скейла конкретной картинки (для функции зума по двойному тапу возвращаем в исходное состояние после увеличения)
     var image: UIImage? {
         didSet {
             guard isViewLoaded else {return}
@@ -14,7 +14,7 @@ final class SingleImageViewController: UIViewController {
         }
     }
     
-    lazy var zoomingTap: UITapGestureRecognizer = {
+    private lazy var zoomingTap: UITapGestureRecognizer = {
         let zoomingTap = UITapGestureRecognizer(target: self, action: #selector(handleZoomingTap))
         zoomingTap.numberOfTapsRequired = 2
         return zoomingTap
@@ -24,6 +24,11 @@ final class SingleImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureScrollViewSettings()
+        
+    }
+    
+    private func configureScrollViewSettings() {
         guard let image else {return}
         scrollView.minimumZoomScale = 0.2
         scrollView.maximumZoomScale = 1.25
@@ -33,14 +38,13 @@ final class SingleImageViewController: UIViewController {
         
         imageView.addGestureRecognizer(zoomingTap)
         imageView.isUserInteractionEnabled = true
-        
     }
     
-    @IBAction func didTapBackButton() {
+    @IBAction private func didTapBackButton() {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func didTapShareButton() {
+    @IBAction private func didTapShareButton() {
         guard let image else {return}
         let share = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         present(share, animated: true)
@@ -53,13 +57,12 @@ final class SingleImageViewController: UIViewController {
     
     private func zoom(point: CGPoint, animated: Bool) {
         let currentScale = self.scrollView.zoomScale
-        let minScale = self.scrollView.minimumZoomScale
         let maxScale = self.scrollView.maximumZoomScale
         
         if currentImageZoomScale >= maxScale && currentScale >= maxScale { // Если картинка по умолчанию маленькая и растянута на весь экран то ее невозможно увеличить дабл тапом
             return
         }
-      
+        
         let finalScale = (currentScale == maxScale) ? currentImageZoomScale : maxScale
         let zoomRect = zoomRect(scale: finalScale, canter: point)
         scrollView.zoom(to: zoomRect, animated: true)
