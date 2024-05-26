@@ -9,17 +9,20 @@
 /* Begin PBXBuildFile section */
 		AC1473BC2BE7EC0600B81250 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1473BB2BE7EC0600B81250 /* ImagesListCell.swift */; };
 		AC3297AE2BE8071F00411DC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC3297AD2BE8071F00411DC9 /* Assets.xcassets */; };
+		AC489E1E2BF6845C001227EA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC489E1D2BF6845C001227EA /* ProfileViewController.swift */; };
 		AC8710CC2BE6584F00387147 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8710CB2BE6584F00387147 /* AppDelegate.swift */; };
 		AC8710CE2BE6584F00387147 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8710CD2BE6584F00387147 /* SceneDelegate.swift */; };
 		AC8710D02BE6584F00387147 /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8710CF2BE6584F00387147 /* ImagesListViewController.swift */; };
 		AC8710D32BE6584F00387147 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = AC8710D22BE6584F00387147 /* Base */; };
 		AC8710D82BE6585000387147 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = AC8710D72BE6585000387147 /* Base */; };
+		AC97BB9E2BF8A06F00B194F4 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC97BB9D2BF8A06F00B194F4 /* SingleImageViewController.swift */; };
 		ACC20EED2BEAB4A1008373BC /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC20EEC2BEAB4A1008373BC /* GradientView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AC1473BB2BE7EC0600B81250 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		AC3297AD2BE8071F00411DC9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AC489E1D2BF6845C001227EA /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		AC8710C82BE6584F00387147 /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC8710CB2BE6584F00387147 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC8710CD2BE6584F00387147 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -27,6 +30,7 @@
 		AC8710D22BE6584F00387147 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AC8710D72BE6585000387147 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AC8710D92BE6585000387147 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC97BB9D2BF8A06F00B194F4 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		ACC20EEC2BEAB4A1008373BC /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -44,6 +48,7 @@
 		AC1473BD2BE7EC3800B81250 /* ImagesList */ = {
 			isa = PBXGroup;
 			children = (
+				ACEEA92C2BFD1B58000C7848 /* SingleImage */,
 				AC1473BB2BE7EC0600B81250 /* ImagesListCell.swift */,
 				AC8710CF2BE6584F00387147 /* ImagesListViewController.swift */,
 			);
@@ -53,8 +58,8 @@
 		AC8710BF2BE6584F00387147 = {
 			isa = PBXGroup;
 			children = (
-				ACC20EEB2BEAB46F008373BC /* Helpers */,
 				AC8710CA2BE6584F00387147 /* ImageFeed */,
+				ACC20EEB2BEAB46F008373BC /* Helpers */,
 				AC8710C92BE6584F00387147 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,6 +75,7 @@
 		AC8710CA2BE6584F00387147 /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				ACA9727F2BF68BEF00AC8F77 /* Profile */,
 				AC1473BD2BE7EC3800B81250 /* ImagesList */,
 				AC8710CB2BE6584F00387147 /* AppDelegate.swift */,
 				AC8710CD2BE6584F00387147 /* SceneDelegate.swift */,
@@ -81,12 +87,28 @@
 			path = ImageFeed;
 			sourceTree = "<group>";
 		};
+		ACA9727F2BF68BEF00AC8F77 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				AC489E1D2BF6845C001227EA /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		ACC20EEB2BEAB46F008373BC /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				ACC20EEC2BEAB4A1008373BC /* GradientView.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		ACEEA92C2BFD1B58000C7848 /* SingleImage */ = {
+			isa = PBXGroup;
+			children = (
+				AC97BB9D2BF8A06F00B194F4 /* SingleImageViewController.swift */,
+			);
+			path = SingleImage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,8 +182,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC489E1E2BF6845C001227EA /* ProfileViewController.swift in Sources */,
 				AC8710D02BE6584F00387147 /* ImagesListViewController.swift in Sources */,
 				AC1473BC2BE7EC0600B81250 /* ImagesListCell.swift in Sources */,
+				AC97BB9E2BF8A06F00B194F4 /* SingleImageViewController.swift in Sources */,
 				ACC20EED2BEAB4A1008373BC /* GradientView.swift in Sources */,
 				AC8710CC2BE6584F00387147 /* AppDelegate.swift in Sources */,
 				AC8710CE2BE6584F00387147 /* SceneDelegate.swift in Sources */,
@@ -319,6 +343,8 @@
 				DEVELOPMENT_TEAM = D4R9788Y8X;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ImageFeed/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -352,6 +378,8 @@
 				DEVELOPMENT_TEAM = D4R9788Y8X;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ImageFeed/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
