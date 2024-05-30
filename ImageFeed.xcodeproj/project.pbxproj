@@ -16,6 +16,7 @@
 		AC8710D32BE6584F00387147 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = AC8710D22BE6584F00387147 /* Base */; };
 		AC8710D82BE6585000387147 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = AC8710D72BE6585000387147 /* Base */; };
 		AC97BB9E2BF8A06F00B194F4 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC97BB9D2BF8A06F00B194F4 /* SingleImageViewController.swift */; };
+		ACADF7C02C08E59A003F5BE6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADF7BF2C08E59A003F5BE6 /* Constants.swift */; };
 		ACC20EED2BEAB4A1008373BC /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC20EEC2BEAB4A1008373BC /* GradientView.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		AC8710D72BE6585000387147 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AC8710D92BE6585000387147 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC97BB9D2BF8A06F00B194F4 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
+		ACADF7BF2C08E59A003F5BE6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		ACC20EEC2BEAB4A1008373BC /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +77,7 @@
 		AC8710CA2BE6584F00387147 /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				ACADF7BE2C08E583003F5BE6 /* Unsplpash */,
 				ACA9727F2BF68BEF00AC8F77 /* Profile */,
 				AC1473BD2BE7EC3800B81250 /* ImagesList */,
 				AC8710CB2BE6584F00387147 /* AppDelegate.swift */,
@@ -93,6 +96,14 @@
 				AC489E1D2BF6845C001227EA /* ProfileViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		ACADF7BE2C08E583003F5BE6 /* Unsplpash */ = {
+			isa = PBXGroup;
+			children = (
+				ACADF7BF2C08E59A003F5BE6 /* Constants.swift */,
+			);
+			path = Unsplpash;
 			sourceTree = "<group>";
 		};
 		ACC20EEB2BEAB46F008373BC /* Helpers */ = {
@@ -189,6 +200,7 @@
 				ACC20EED2BEAB4A1008373BC /* GradientView.swift in Sources */,
 				AC8710CC2BE6584F00387147 /* AppDelegate.swift in Sources */,
 				AC8710CE2BE6584F00387147 /* SceneDelegate.swift in Sources */,
+				ACADF7C02C08E59A003F5BE6 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
