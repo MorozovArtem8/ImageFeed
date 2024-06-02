@@ -68,7 +68,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyg-aS-wCg">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <rect key="frame" x="0.0" y="48" width="393" height="804"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -87,20 +87,28 @@
                                     <action selector="didTapBackButton" destination="ZeX-v4-sqi" eventType="touchUpInside" id="2OW-Ug-fdD"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uw0-8g-kPe">
+                                <rect key="frame" x="0.0" y="44" width="393" height="4"/>
+                                <color key="progressTintColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tQ6-dY-Uiq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="ST9-CQ-WML" firstAttribute="top" secondItem="tQ6-dY-Uiq" secondAttribute="top" id="3Uv-U0-8zq"/>
-                            <constraint firstItem="Tyg-aS-wCg" firstAttribute="top" secondItem="ST9-CQ-WML" secondAttribute="top" id="MDf-4w-pdW"/>
+                            <constraint firstItem="uw0-8g-kPe" firstAttribute="top" secondItem="ST9-CQ-WML" secondAttribute="bottom" id="GeN-8W-9qm"/>
+                            <constraint firstItem="Tyg-aS-wCg" firstAttribute="top" secondItem="uw0-8g-kPe" secondAttribute="bottom" id="MDf-4w-pdW"/>
                             <constraint firstAttribute="bottom" secondItem="Tyg-aS-wCg" secondAttribute="bottom" id="Y9B-ju-GQH"/>
                             <constraint firstItem="Tyg-aS-wCg" firstAttribute="leading" secondItem="muI-Mb-hFN" secondAttribute="leading" id="c27-Fv-tH7"/>
+                            <constraint firstItem="uw0-8g-kPe" firstAttribute="leading" secondItem="tQ6-dY-Uiq" secondAttribute="leading" id="rmd-dj-8am"/>
                             <constraint firstAttribute="trailing" secondItem="Tyg-aS-wCg" secondAttribute="trailing" id="ugD-TO-KWz"/>
+                            <constraint firstItem="tQ6-dY-Uiq" firstAttribute="trailing" secondItem="uw0-8g-kPe" secondAttribute="trailing" id="xuV-yb-WI9"/>
                             <constraint firstItem="ST9-CQ-WML" firstAttribute="leading" secondItem="tQ6-dY-Uiq" secondAttribute="leading" id="zer-eU-oZL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ioK-8y-Fej"/>
                     <connections>
+                        <outlet property="progressView" destination="uw0-8g-kPe" id="XiF-Mg-LOI"/>
                         <outlet property="webView" destination="Tyg-aS-wCg" id="lWb-rq-Pd1"/>
                     </connections>
                 </viewController>
