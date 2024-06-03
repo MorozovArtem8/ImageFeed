@@ -13,10 +13,7 @@ final class WebViewViewController: UIViewController {
     
     weak var delegate: WebViewViewControllerDelegate?
     
-    enum WebViewConstants {
-        static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
-    }
-    
+    //MARK: Life cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress) ,options: .new, context: nil)
@@ -48,7 +45,7 @@ final class WebViewViewController: UIViewController {
     }
     
     private func loadAuthView() {
-        guard var urlComponents = URLComponents(string: WebViewConstants.unsplashAuthorizeURLString) else {
+        guard var urlComponents = URLComponents(string: Constants.unsplashAuthorizeURLString) else {
             return
         }
         urlComponents.queryItems = [
@@ -72,7 +69,7 @@ final class WebViewViewController: UIViewController {
     }
     
 }
-
+//MARK: WKNavigationDelegate func
 extension WebViewViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let code = code(from: navigationAction) {
@@ -90,7 +87,7 @@ extension WebViewViewController: WKNavigationDelegate {
            let items = urlComponent.queryItems,
            let codeItems = items.first(where: {$0.name == "code"}) {
             return codeItems.value
-        }else {
+        } else {
             return nil
         }
     }
