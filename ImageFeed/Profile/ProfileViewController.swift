@@ -11,7 +11,13 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        
+        updateProfileDetails(profile: ProfileService.shared.profile ?? Profile(userName: "", firstName: "", lastName: "", bio: ""))
+    }
+    
+    private func updateProfileDetails(profile: Profile) {
+        userNameLabel?.text = profile.name
+        userEmailLabel?.text = profile.loginName
+        userDescriptionLabel?.text = profile.bio
     }
     
     private func configureUI() {
@@ -71,7 +77,6 @@ final class ProfileViewController: UIViewController {
     private func configureUserNameLabel() {
         guard let profilePhotoImageView = profilePhotoImageView else {return}
         let userNameLabel = UILabel()
-        userNameLabel.text = "Екатерина новикова"
         userNameLabel.textColor = .white
         
         userNameLabel.font = UIFont.systemFont(ofSize: 23, weight: .bold)
@@ -93,7 +98,6 @@ final class ProfileViewController: UIViewController {
         guard let userNameLabel = userNameLabel else {return}
         
         let userEmailLabel = UILabel()
-        userEmailLabel.text = "@ekaterina_nov"
         userEmailLabel.textColor = #colorLiteral(red: 0.7369984984, green: 0.7409694791, blue: 0.7575188279, alpha: 1)
         
         userEmailLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
@@ -115,7 +119,6 @@ final class ProfileViewController: UIViewController {
         guard let userEmailLabel = userEmailLabel else {return}
         
         let userDescriptionLabel = UILabel()
-        userDescriptionLabel.text = "Hello, world!"
         userDescriptionLabel.textColor = #colorLiteral(red: 1, green: 0.9999999404, blue: 1, alpha: 1)
         
         userDescriptionLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
