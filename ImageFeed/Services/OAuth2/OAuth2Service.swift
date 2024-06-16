@@ -39,21 +39,13 @@ final class OAuth2Service {
         guard let request = makeOAuthTokenRequest(code: code) else {completion(.failure(AuthServiceError.invalidRequest))
             return}
         
-        let task = URLSession.shared.data(for: request) { [weak self] result in
+        let task = URLSession.shared.objectTask(for: request) { [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
             switch result {
-            case .success(let data):
-                do {
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    
-                    let token = try decoder.decode(OAuthTokenResponseBody.self, from: data)
-                    completion(.success(token.accessToken))
-                } catch {
-                    completion(.failure(error))
-                }
+            case .success(let decodedData):
+                    completion(.success(decodedData.accessToken))
             case .failure(let error):
+                print("OAuth2Service \(error.localizedDescription)")
                 completion(.failure(error))
-                
             }
             
             self?.task = nil

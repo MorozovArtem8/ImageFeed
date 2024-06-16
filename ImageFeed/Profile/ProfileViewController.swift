@@ -8,10 +8,26 @@ final class ProfileViewController: UIViewController {
     private weak var userDescriptionLabel: UILabel?
     private weak var exitButton: UIButton?
     
+    private var profileImageServiceObserver: NSObjectProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         updateProfileDetails(profile: ProfileService.shared.profile ?? Profile(userName: "", firstName: "", lastName: "", bio: ""))
+        
+        profileImageServiceObserver = NotificationCenter.default.addObserver(forName: ProfileImageService.didChangeNotification, object: nil, queue: .main) { [weak self] _ in
+            guard let self = self else {return}
+            self.updateAvatar()
+        }
+        updateAvatar()
+    }
+    
+    private func updateAvatar() {
+        
+        guard let profileImageUrl = ProfileImageService.shared.avatarURL,
+              let url = URL(string: profileImageUrl)
+        else {return}
+        print(profileImageUrl)
     }
     
     private func updateProfileDetails(profile: Profile) {

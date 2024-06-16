@@ -25,6 +25,13 @@ final class AuthViewController: UIViewController {
         }
     }
     
+    private func showErrorAlert() {
+        let alertController = UIAlertController(title: "Что-то пошло не так(", message: "Не удалось войти в систему", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "ОК", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true)
+    }
+    
 }
 
 //MARK: WebViewViewControllerDelegate func
@@ -45,6 +52,7 @@ extension AuthViewController: WebViewViewControllerDelegate {
                 self.delegateAuth?.didAuthenticate(self) // вызываем меетод что токен получен
                 
             case .failure(let error):
+                showErrorAlert()
                 if let error = error as? NetworkError {
                     switch error {
                     case .httpStatusCode(_):

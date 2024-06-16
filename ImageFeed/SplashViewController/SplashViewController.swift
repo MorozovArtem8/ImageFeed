@@ -1,7 +1,6 @@
 import UIKit
 
 final class SplashViewController: UIViewController {
-    
     private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
     private var storage: OAuth2TokenStorage?
     
@@ -50,8 +49,6 @@ final class SplashViewController: UIViewController {
 extension SplashViewController: AuthViewControllerDelegate {
     func didAuthenticate(_ vc: AuthViewController) {
         vc.dismiss(animated: true)
-        guard let token = storage?.getToken() else {return}
-        fetchProfile(token)
     }
     
     private func fetchProfile(_ token: String) {
@@ -62,7 +59,8 @@ extension SplashViewController: AuthViewControllerDelegate {
             
             guard let self = self else {return}
             switch result {
-            case .success:
+            case .success(let profile):
+                ProfileImageService.shared.fetchProfileImageURL(token: token, userName: profile.userName) {_ in}
                 self.switchToTabBarController()
             case .failure(let error):
                 print(error)

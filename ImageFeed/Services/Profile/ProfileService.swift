@@ -2,10 +2,10 @@ import UIKit
 
 final class ProfileService {
     
-    private(set) var profile: Profile?
     static let shared = ProfileService()
     private init(){}
     
+    private(set) var profile: Profile?
     private var lastToken: String?
     private var task: URLSessionTask?
     
@@ -28,20 +28,14 @@ final class ProfileService {
         guard let request = makeProfileRequest(authToken: token) else {completion(.failure(AuthServiceError.invalidRequest))
             return}
         
-        let task = URLSession.shared.data(for: request) { [weak self] result in
+        let task = URLSession.shared.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
             switch result {
-            case .success(let data):
-                do {
-                    let decoder = JSONDecoder()
-                    
-                    let profileResult = try decoder.decode(ProfileResult.self, from: data)
-                    let profile = Profile(userName: profileResult.userName, firstName: profileResult.firstName, lastName: profileResult.lastName, bio: profileResult.bio)
-                    self?.profile = profile
-                    completion(.success(profile))
-                } catch {
-                    completion(.failure(error))
-                }
+            case .success(let decodedData):
+                let profile = Profile(userName: decodedData.userName, firstName: decodedData.firstName, lastName: decodedData.lastName, bio: decodedData.bio)
+                self?.profile = profile
+                completion(.success(profile))
             case .failure(let error):
+                print("ProfileService \(error.localizedDescription)")
                 completion(.failure(error))
             }
             
