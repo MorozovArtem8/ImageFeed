@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     
@@ -23,11 +24,14 @@ final class ProfileViewController: UIViewController {
     }
     
     private func updateAvatar() {
-        
+        let cache = ImageCache.default
+        cache.clearDiskCache()
         guard let profileImageUrl = ProfileImageService.shared.avatarURL,
               let url = URL(string: profileImageUrl)
         else {return}
-        print(profileImageUrl)
+        let process = RoundCornerImageProcessor(cornerRadius: 35)
+        profilePhotoImageView?.kf.setImage(with: url, placeholder: UIImage(systemName: "person.crop.circle.fill"), options: [.processor((process))])
+        
     }
     
     private func updateProfileDetails(profile: Profile) {
@@ -45,13 +49,12 @@ final class ProfileViewController: UIViewController {
     }
     
     private func configureProfilePhotoImageView() {
-        let profileImage = UIImage(named: "profile_photo")
-        let profileImageDefaultSF = UIImage(systemName: "person.crop.circle.fill") ?? UIImage()
         
         let profilePhotoImageView = UIImageView()
-        profilePhotoImageView.image = profileImage ?? profileImageDefaultSF
         profilePhotoImageView.translatesAutoresizingMaskIntoConstraints = false
         profilePhotoImageView.tintColor = .gray
+        profilePhotoImageView.layer.cornerRadius = 35
+        profilePhotoImageView.clipsToBounds = true
         view.addSubview(profilePhotoImageView)
         
         NSLayoutConstraint.activate([
@@ -60,7 +63,6 @@ final class ProfileViewController: UIViewController {
             profilePhotoImageView.widthAnchor.constraint(equalToConstant: 70),
             profilePhotoImageView.heightAnchor.constraint(equalToConstant: 70)
         ])
-        
         self.profilePhotoImageView = profilePhotoImageView
     }
     

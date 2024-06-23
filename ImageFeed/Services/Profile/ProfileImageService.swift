@@ -32,12 +32,12 @@ final class ProfileImageService {
         let task = URLSession.shared.objectTask(for: request) { [weak self] (result: Result<UserResult, Error>) in
             switch result {
             case .success(let decodedData):
-                self?.avatarURL = decodedData.profileImage.small
-                completion(.success(decodedData.profileImage.small))
+                self?.avatarURL = decodedData.profileImage.medium
+                completion(.success(decodedData.profileImage.medium))
                 
                 NotificationCenter.default.post(name: ProfileImageService.didChangeNotification, object: self, userInfo: ["URL": decodedData])
             case .failure(let error):
-                print("ProfileImageService \(error.localizedDescription)")
+                print("🚩 ProfileImageService \(error.localizedDescription) 🚩")
                 completion(.failure(error))
             }
             

@@ -12,7 +12,7 @@ final class OAuth2Service {
     static let shared = OAuth2Service()
     private init() {}
     
-    func makeOAuthTokenRequest(code: String) -> URLRequest? {
+   private func makeOAuthTokenRequest(code: String) -> URLRequest? {
         guard var urlComponents = URLComponents(string: "https://unsplash.com/oauth/token") else {return nil}
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: Constants.accessKey),
@@ -44,7 +44,7 @@ final class OAuth2Service {
             case .success(let decodedData):
                     completion(.success(decodedData.accessToken))
             case .failure(let error):
-                print("OAuth2Service \(error.localizedDescription)")
+                print("🚩 OAuth2Service \(error.localizedDescription) 🚩")
                 completion(.failure(error))
             }
             
