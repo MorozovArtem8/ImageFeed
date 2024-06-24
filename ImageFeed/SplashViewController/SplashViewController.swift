@@ -1,13 +1,15 @@
 import UIKit
 
 final class SplashViewController: UIViewController {
-    private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
+    private weak var logoImageView: UIImageView?
     private var storage: OAuth2TokenStorage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUI()
+        view.backgroundColor = .ypBlack
         storage = OAuth2TokenStorageImplementation()
-
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -15,21 +17,10 @@ final class SplashViewController: UIViewController {
         if let token = storage?.getToken() {
             fetchProfile(token)
         } else {
-            performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ShowAuthenticationScreenSegueIdentifier {
-            guard let navigationController = segue.destination as? UINavigationController,
-                  let viewController = navigationController.viewControllers[0] as? AuthViewController
-            else {
-                assertionFailure("Failed to prepare for ShowAuthFlow")
-                return
-            }
-            viewController.delegateAuth = self
-        }else {
-            super.prepare(for: segue, sender: sender)
+            let authVC = AuthViewController()
+            authVC.delegateAuth = self
+            authVC.modalPresentationStyle = .fullScreen
+            present(authVC, animated: true)
         }
     }
     
@@ -39,8 +30,7 @@ final class SplashViewController: UIViewController {
             return
         }
         
-        let tabBarController = UIStoryboard(name: "Main", bundle: .main)
-            .instantiateViewController(identifier: "TabBarViewController")
+        let tabBarController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "TabBarViewController")
         window.rootViewController = tabBarController
     }
 }
@@ -63,9 +53,24 @@ extension SplashViewController: AuthViewControllerDelegate {
                 self.switchToTabBarController()
             case .failure(let error):
                 print(error.localizedDescription)
-                performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
                 break
             }
         })
+    }
+}
+
+//MARK: Configure UI
+extension SplashViewController {
+    private func configureUI() {
+        let logoImageView = UIImageView()
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        logoImageView.image = UIImage(named: "SplashScreenLogoVector") ?? UIImage()
+        view.addSubview(logoImageView)
+        
+        NSLayoutConstraint.activate([
+            logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        self.logoImageView = logoImageView
     }
 }

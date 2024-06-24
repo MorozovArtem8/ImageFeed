@@ -6,6 +6,9 @@ protocol AuthViewControllerDelegate: AnyObject {
 
 final class AuthViewController: UIViewController {
     
+    private weak var logoImageView: UIImageView?
+    private weak var loginButton: UIButton?
+    
     private var tokenStorage: OAuth2TokenStorage?
     weak var delegateAuth: AuthViewControllerDelegate?
     
@@ -13,16 +16,8 @@ final class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUI()
         tokenStorage = OAuth2TokenStorageImplementation()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == showWebViewSegueID {
-            guard let viewController = segue.destination as? WebViewViewController else {fatalError("Failed to prepare for \(showWebViewSegueID)")}
-            viewController.delegate = self
-        }else {
-            super.prepare(for: segue, sender: sender)
-        }
     }
     
     private func showErrorAlert() {
@@ -71,5 +66,58 @@ extension AuthViewController: WebViewViewControllerDelegate {
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
         dismiss(animated: true)
+    }
+}
+
+//MARK: Configure UI
+private extension AuthViewController {
+    func configureUI() {
+        view.backgroundColor = .ypBlack
+        configureLogo()
+        configureLoginButton()
+    }
+    
+    func configureLogo() {
+        let logoImageView = UIImageView()
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        logoImageView.image = UIImage(named: "auth_screen_logo") ?? UIImage()
+        view.addSubview(logoImageView)
+        
+        NSLayoutConstraint.activate([
+            logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        self.logoImageView = logoImageView
+    }
+    
+    func configureLoginButton() {
+        
+        let loginButton = UIButton(type: .system)
+        loginButton.setTitle("Войти", for: .normal)
+        loginButton.backgroundColor = .white
+        loginButton.tintColor = .ypBlack
+        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        loginButton.layer.cornerRadius = 16
+        loginButton.clipsToBounds = true
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loginButton)
+        
+        NSLayoutConstraint.activate([
+            loginButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            loginButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            loginButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -90),
+            loginButton.heightAnchor.constraint(equalToConstant: 48)
+        ])
+        
+        loginButton.addTarget(self, action: #selector(self.loginButtonTapp), for: .touchUpInside)
+        self.loginButton = loginButton
+    }
+    
+    @objc func loginButtonTapp() {
+        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        guard let webViewVC = storyboard.instantiateViewController(withIdentifier: "WebViewControllerStoryboardID") as? WebViewViewController else {return}
+        webViewVC.delegate = self
+        webViewVC.modalPresentationStyle = .fullScreen
+        present(webViewVC, animated: true)
     }
 }

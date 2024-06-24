@@ -40,7 +40,11 @@ final class ProfileViewController: UIViewController {
         userDescriptionLabel?.text = profile.bio
     }
     
+}
+//MARK: Configure UI
+extension ProfileViewController {
     private func configureUI() {
+        view.backgroundColor = .ypBlack
         configureProfilePhotoImageView()
         configureExitButton()
         configureUserNameLabel()
@@ -153,5 +157,4 @@ final class ProfileViewController: UIViewController {
         
         self.userDescriptionLabel = userDescriptionLabel
     }
-    
 }
