@@ -96,7 +96,7 @@ private extension ImagesListCell {
         guard let cellImageView = cellImageView else {return}
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         label.textColor = .white
         contentView.addSubview(label)
         

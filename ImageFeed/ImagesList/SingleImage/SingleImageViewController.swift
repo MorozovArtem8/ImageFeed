@@ -26,7 +26,6 @@ final class SingleImageViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         
-        
     }
     
     private func configureScrollViewSettings() {
