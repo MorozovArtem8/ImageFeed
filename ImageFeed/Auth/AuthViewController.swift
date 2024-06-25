@@ -114,8 +114,7 @@ private extension AuthViewController {
     }
     
     @objc func loginButtonTapp() {
-        let storyboard = UIStoryboard(name: "Main", bundle: .main)
-        guard let webViewVC = storyboard.instantiateViewController(withIdentifier: "WebViewControllerStoryboardID") as? WebViewViewController else {return}
+        let webViewVC = WebViewViewController()
         webViewVC.delegate = self
         webViewVC.modalPresentationStyle = .fullScreen
         present(webViewVC, animated: true)

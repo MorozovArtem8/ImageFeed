@@ -33,6 +33,7 @@
 		ACACB94E2C27FC82009CA5EF /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACACB94D2C27FC82009CA5EF /* TabBarController.swift */; };
 		ACADF7C02C08E59A003F5BE6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADF7BF2C08E59A003F5BE6 /* Constants.swift */; };
 		ACC20EED2BEAB4A1008373BC /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC20EEC2BEAB4A1008373BC /* GradientView.swift */; };
+		ACEB9E712C2AB99A007A0F43 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEB9E702C2AB99A007A0F43 /* Color+Extension.swift */; };
 		ACF84D762C269C9B00D3DA09 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = ACF84D752C269C9B00D3DA09 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		ACACB94D2C27FC82009CA5EF /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		ACADF7BF2C08E59A003F5BE6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		ACC20EEC2BEAB4A1008373BC /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		ACEB9E702C2AB99A007A0F43 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 			children = (
 				ACC20EEC2BEAB4A1008373BC /* GradientView.swift */,
 				ACACB94D2C27FC82009CA5EF /* TabBarController.swift */,
+				ACEB9E702C2AB99A007A0F43 /* Color+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				AC5AF7342C0CBDC400941C73 /* OAuth2Service.swift in Sources */,
 				AC0E6D832C1DE57600BEC4AC /* ProfileResult+UserResultJsonModel.swift in Sources */,
 				AC5AF73E2C0CF2C200941C73 /* SplashViewController.swift in Sources */,
+				ACEB9E712C2AB99A007A0F43 /* Color+Extension.swift in Sources */,
 				AC0E6D812C1D943700BEC4AC /* ProfileService.swift in Sources */,
 				AC5AF73C2C0CDC8400941C73 /* OAuth2TokenStorage.swift in Sources */,
 				AC97BB9E2BF8A06F00B194F4 /* SingleImageViewController.swift in Sources */,

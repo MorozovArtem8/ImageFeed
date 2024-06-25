@@ -7,7 +7,6 @@ final class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        view.backgroundColor = .ypBlack
         storage = OAuth2TokenStorageImplementation()
         
     }
@@ -30,7 +29,7 @@ final class SplashViewController: UIViewController {
             return
         }
         
-        let tabBarController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "TabBarViewController")
+        let tabBarController = TabBarController()
         window.rootViewController = tabBarController
     }
 }
@@ -60,8 +59,9 @@ extension SplashViewController: AuthViewControllerDelegate {
 }
 
 //MARK: Configure UI
-extension SplashViewController {
-    private func configureUI() {
+private extension SplashViewController {
+    func configureUI() {
+        view.backgroundColor = .ypBlack
         let logoImageView = UIImageView()
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.image = UIImage(named: "SplashScreenLogoVector") ?? UIImage()
