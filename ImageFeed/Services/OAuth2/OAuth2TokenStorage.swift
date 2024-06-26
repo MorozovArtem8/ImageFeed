@@ -1,4 +1,5 @@
 import Foundation
+import SwiftKeychainWrapper
 
 protocol OAuth2TokenStorage {
     func getToken() -> String?
@@ -7,15 +8,19 @@ protocol OAuth2TokenStorage {
 
 final class OAuth2TokenStorageImplementation: OAuth2TokenStorage{
     
-    private let userDefaults = UserDefaults.standard
-    
     private var token: String? {
         get {
-            return userDefaults.string(forKey: "token")
+            let token: String? = KeychainWrapper.standard.string(forKey: "Auth token")
+            return token
         }
         
         set {
-            userDefaults.set(newValue, forKey: "token")
+            guard let token = newValue else { return }
+            let isSuccess = KeychainWrapper.standard.set(token, forKey: "Auth token")
+            guard isSuccess else {
+                print("KeychainWrapper set token failed")
+                return
+            }
         }
     }
     

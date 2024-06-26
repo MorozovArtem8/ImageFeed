@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     
@@ -8,13 +9,42 @@ final class ProfileViewController: UIViewController {
     private weak var userDescriptionLabel: UILabel?
     private weak var exitButton: UIButton?
     
+    private var profileImageServiceObserver: NSObjectProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        updateProfileDetails(profile: ProfileService.shared.profile ?? Profile(userName: "", firstName: "", lastName: "", bio: ""))
+        
+        profileImageServiceObserver = NotificationCenter.default.addObserver(forName: ProfileImageService.didChangeNotification, object: nil, queue: .main) { [weak self] _ in
+            guard let self = self else {return}
+            self.updateAvatar()
+        }
+        updateAvatar()
+    }
+    
+    private func updateAvatar() {
+        let cache = ImageCache.default
+        cache.clearDiskCache()
+        guard let profileImageUrl = ProfileImageService.shared.avatarURL,
+              let url = URL(string: profileImageUrl)
+        else {return}
+        let process = RoundCornerImageProcessor(cornerRadius: 35)
+        profilePhotoImageView?.kf.setImage(with: url, placeholder: UIImage(systemName: "person.crop.circle.fill"), options: [.processor((process))])
         
     }
     
+    private func updateProfileDetails(profile: Profile) {
+        userNameLabel?.text = profile.name
+        userEmailLabel?.text = profile.loginName
+        userDescriptionLabel?.text = profile.bio
+    }
+    
+}
+//MARK: Configure UI
+extension ProfileViewController {
     private func configureUI() {
+        view.backgroundColor = .ypBlack
         configureProfilePhotoImageView()
         configureExitButton()
         configureUserNameLabel()
@@ -23,13 +53,11 @@ final class ProfileViewController: UIViewController {
     }
     
     private func configureProfilePhotoImageView() {
-        let profileImage = UIImage(named: "profile_photo")
-        let profileImageDefaultSF = UIImage(systemName: "person.crop.circle.fill") ?? UIImage()
-        
         let profilePhotoImageView = UIImageView()
-        profilePhotoImageView.image = profileImage ?? profileImageDefaultSF
         profilePhotoImageView.translatesAutoresizingMaskIntoConstraints = false
         profilePhotoImageView.tintColor = .gray
+        profilePhotoImageView.layer.cornerRadius = 35
+        profilePhotoImageView.clipsToBounds = true
         view.addSubview(profilePhotoImageView)
         
         NSLayoutConstraint.activate([
@@ -71,7 +99,6 @@ final class ProfileViewController: UIViewController {
     private func configureUserNameLabel() {
         guard let profilePhotoImageView = profilePhotoImageView else {return}
         let userNameLabel = UILabel()
-        userNameLabel.text = "Екатерина новикова"
         userNameLabel.textColor = .white
         
         userNameLabel.font = UIFont.systemFont(ofSize: 23, weight: .bold)
@@ -93,7 +120,6 @@ final class ProfileViewController: UIViewController {
         guard let userNameLabel = userNameLabel else {return}
         
         let userEmailLabel = UILabel()
-        userEmailLabel.text = "@ekaterina_nov"
         userEmailLabel.textColor = #colorLiteral(red: 0.7369984984, green: 0.7409694791, blue: 0.7575188279, alpha: 1)
         
         userEmailLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
@@ -115,7 +141,6 @@ final class ProfileViewController: UIViewController {
         guard let userEmailLabel = userEmailLabel else {return}
         
         let userDescriptionLabel = UILabel()
-        userDescriptionLabel.text = "Hello, world!"
         userDescriptionLabel.textColor = #colorLiteral(red: 1, green: 0.9999999404, blue: 1, alpha: 1)
         
         userDescriptionLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
@@ -132,5 +157,4 @@ final class ProfileViewController: UIViewController {
         
         self.userDescriptionLabel = userDescriptionLabel
     }
-    
 }

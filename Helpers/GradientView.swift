@@ -2,12 +2,12 @@ import UIKit
 
 final class GradientView: UIView {
     
-    @IBInspectable private var startColor: UIColor? {
+    var startColor: UIColor? {
         didSet {
             setupGradient()
         }
     }
-    @IBInspectable private var endColor: UIColor? {
+    var endColor: UIColor? {
         didSet {
             setupGradient()
         }
