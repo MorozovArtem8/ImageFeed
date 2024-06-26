@@ -10,7 +10,7 @@ final class ProfileService {
     private var task: URLSessionTask?
     
     private func makeProfileRequest(authToken: String) -> URLRequest? {
-        guard let url = URL(string: "https://api.unsplash.com/me") else {return nil}
+        guard let url = URL(string: Constants.unsplashMeURLString) else {return nil}
         var request = URLRequest(url: url)
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         return request

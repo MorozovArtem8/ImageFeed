@@ -11,7 +11,7 @@ final class ProfileImageService {
     private var task: URLSessionTask?
     
     private func makeProfileImageRequest(authToken: String, userName: String) -> URLRequest? {
-        guard let url = URL(string: "https://api.unsplash.com/users/\(userName)") else {return nil}
+        guard let url = URL(string: "\(Constants.unsplashProfileURLString)\(userName)") else {return nil}
         var request = URLRequest(url: url)
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         return request
