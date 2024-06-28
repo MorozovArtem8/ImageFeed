@@ -63,6 +63,10 @@ extension ImagesListViewController: UITableViewDelegate {
         return imageViewHeight
         
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+    }
 }
 //MARK: Configure UI
 private extension ImagesListViewController {
