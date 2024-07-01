@@ -1,7 +1,8 @@
 import UIKit
+import Kingfisher
 
 final class ImagesListCell: UITableViewCell {
-    private weak var cellImageView: UIImageView?
+    weak var cellImageView: UIImageView?
     private weak var cellLikeButton: UIButton?
     private weak var gradientView: UIView?
     private weak var cellDateLabel: UILabel?
@@ -13,13 +14,17 @@ final class ImagesListCell: UITableViewCell {
         configureUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cellImageView?.kf.cancelDownloadTask()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(image: UIImage, date: String, isLiked: Bool) {
+    func configureCell(date: String, isLiked: Bool) {
         cellDateLabel?.backgroundColor = UIColor.clear
-        cellImageView?.image = image
         cellDateLabel?.text = date
         
         let likerImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
