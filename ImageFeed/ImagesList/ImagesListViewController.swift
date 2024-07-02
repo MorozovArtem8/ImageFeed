@@ -1,5 +1,4 @@
 import UIKit
-import Kingfisher
 
 final class ImagesListViewController: UIViewController {
     private weak var tableView: UITableView?
@@ -57,13 +56,12 @@ extension ImagesListViewController: UITableViewDataSource {
         guard let imageListCell = cell as? ImagesListCell else {
             return UITableViewCell()
         }
-        let url = URL(string: photos[indexPath.row].thumbImageURL)
         
-        imageListCell.cellImageView?.kf.indicatorType = .activity
-        imageListCell.cellImageView?.kf.setImage(with: url, placeholder: UIImage(named: "Stub_card")) 
+        let urlForDownloadImage = URL(string: photos[indexPath.row].thumbImageURL) ?? URL(fileURLWithPath: "")
         let cellDate = dateFormatter.string(from: Date())
         let isLiked = indexPath.row % 2 == 0
-        imageListCell.configureCell(date: cellDate, isLiked: isLiked)
+        
+        imageListCell.configureCell(urlForDownloadImage: urlForDownloadImage, date: cellDate, isLiked: isLiked)
         
         return imageListCell
     }
@@ -73,6 +71,7 @@ extension ImagesListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let singleImageVC = SingleImageViewController()
+        singleImageVC.largeURL = URL(string: photos[indexPath.row].largeImageURL)
         singleImageVC.modalPresentationStyle = .fullScreen
         present(singleImageVC, animated: true)
     }
@@ -88,9 +87,7 @@ extension ImagesListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        print(indexPath.row)
         if indexPath.row + 1 == photos.count {
-            
             imagesListService?.fetchPhotosNextPage()
         }
     }

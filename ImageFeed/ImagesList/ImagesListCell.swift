@@ -1,8 +1,7 @@
 import UIKit
-import Kingfisher
 
 final class ImagesListCell: UITableViewCell {
-    weak var cellImageView: UIImageView?
+    private weak var cellImageView: UIImageView?
     private weak var cellLikeButton: UIButton?
     private weak var gradientView: UIView?
     private weak var cellDateLabel: UILabel?
@@ -23,9 +22,12 @@ final class ImagesListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(date: String, isLiked: Bool) {
+    func configureCell(urlForDownloadImage: URL, date: String, isLiked: Bool) {
         cellDateLabel?.backgroundColor = UIColor.clear
         cellDateLabel?.text = date
+        
+        cellImageView?.kf.indicatorType = .activity
+        cellImageView?.kf.setImage(with: urlForDownloadImage, placeholder: UIImage(named: "Stub_card"))
         
         let likerImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
         cellLikeButton?.setImage(likerImage, for: .normal)
