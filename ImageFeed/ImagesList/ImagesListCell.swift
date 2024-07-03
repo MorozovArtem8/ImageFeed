@@ -6,6 +6,8 @@ final class ImagesListCell: UITableViewCell {
     private weak var gradientView: UIView?
     private weak var cellDateLabel: UILabel?
     
+    weak var delegate: ImagesListCellDelegate?
+    
     static let reuseIdentifier = "ImagesListCell"
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -29,8 +31,13 @@ final class ImagesListCell: UITableViewCell {
         cellImageView?.kf.indicatorType = .activity
         cellImageView?.kf.setImage(with: urlForDownloadImage, placeholder: UIImage(named: "Stub_card"))
         
-        let likerImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
-        cellLikeButton?.setImage(likerImage, for: .normal)
+        let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
+        cellLikeButton?.setImage(likeImage, for: .normal)
+    }
+    
+    func setIsLiked(isLikedUpdate: Bool) {
+        let likeImage = isLikedUpdate ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
+        cellLikeButton?.setImage(likeImage, for: .normal)
     }
 }
 
@@ -68,6 +75,7 @@ private extension ImagesListCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "like_button_on"), for: .normal)
+        button.addTarget(self, action: #selector(self.didTapLikeButton), for: .touchUpInside)
         
         contentView.addSubview(button)
         NSLayoutConstraint.activate([
@@ -78,6 +86,11 @@ private extension ImagesListCell {
         ])
         
         self.cellLikeButton = button
+    }
+    
+    @objc func didTapLikeButton() {
+        delegate?.imageListCellDidTapLike(self)
+        
     }
     
     func configureGradientView() {

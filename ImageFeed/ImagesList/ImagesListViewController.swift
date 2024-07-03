@@ -1,12 +1,15 @@
 import UIKit
 
+protocol ImagesListCellDelegate: AnyObject {
+    func imageListCellDidTapLike(_ cell: ImagesListCell)
+}
+
 final class ImagesListViewController: UIViewController {
     private weak var tableView: UITableView?
     private var imagesListService: ImagesListServiceProtocol?
     private var imagesListServiceObserver: NSObjectProtocol?
     
     private var photos: [Photo] = []
-    //private let photosName: [String] = Array(0..<21).map{ "\($0)" }
     
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -44,6 +47,30 @@ final class ImagesListViewController: UIViewController {
     }
 }
 
+//MARK: ImagesListCellDelegate func
+extension ImagesListViewController: ImagesListCellDelegate {
+    func imageListCellDidTapLike(_ cell: ImagesListCell) {
+        guard let indexPath = tableView?.indexPath(for: cell) else {return}
+        let photo = photos[indexPath.row]
+        UIBlockingProgressHUD.show()
+        imagesListService?.changeLike(photoId: photo.id, isLike: photo.isLiked, { [weak self] result in
+            switch result {
+            case .success(_):
+                guard let updatePhotos = self?.imagesListService?.photos else {return}
+                self?.photos = updatePhotos
+                if let currentPhotoIsLiked = self?.photos[indexPath.row].isLiked {
+                    cell.setIsLiked(isLikedUpdate: !currentPhotoIsLiked)
+                }
+                UIBlockingProgressHUD.dismiss()
+            case .failure(let error):
+                UIBlockingProgressHUD.dismiss()
+                print("🚩 ImageListCellDidTapLike Ошибка запроса \(error.localizedDescription)")
+                //TODO: Показать ошибку с использованием UIAlertController
+            }
+        })
+    }
+}
+
 extension ImagesListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,10 +83,10 @@ extension ImagesListViewController: UITableViewDataSource {
         guard let imageListCell = cell as? ImagesListCell else {
             return UITableViewCell()
         }
-        
+        imageListCell.delegate = self
         let urlForDownloadImage = URL(string: photos[indexPath.row].thumbImageURL) ?? URL(fileURLWithPath: "")
         let cellDate = dateFormatter.string(from: Date())
-        let isLiked = indexPath.row % 2 == 0
+        let isLiked = photos[indexPath.row].isLiked
         
         imageListCell.configureCell(urlForDownloadImage: urlForDownloadImage, date: cellDate, isLiked: isLiked)
         

@@ -4,6 +4,7 @@ protocol ImagesListServiceProtocol {
     var lastLoadedPage: Int? { get set }
     func fetchPhotosNextPage()
     var photos: [Photo] {get}
+    func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 final class ImagesListService: ImagesListServiceProtocol {
@@ -41,7 +42,7 @@ final class ImagesListService: ImagesListServiceProtocol {
         guard let request = makePhotosRequest(authToken: token, nextPage: nextPage) else {
             return}
         
-        let task = URLSession.shared.dataTask(with: request) {data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 print(error.localizedDescription)
                 return
@@ -86,6 +87,47 @@ final class ImagesListService: ImagesListServiceProtocol {
         }
         
         
+        self.task = task
+        task.resume()
+    }
+}
+//MARK: Like/Unlike photo service
+extension ImagesListService {
+    private func makeChangeLikeRequest(authToken: String, photoId: String, isLike: Bool) -> URLRequest? {
+        
+        guard let urlsString = (Constants.defaultBaseURL?.absoluteString),
+              let url = URL(string: "\(urlsString)photos/\(photoId)/like") else {return nil}
+        
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = isLike ? "DELETE" : "POST" 
+        return request
+    }
+    
+    func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
+        guard task == nil,
+        let token = storage?.getToken() else { return }
+        assert(Thread.isMainThread)
+        
+        guard let request = makeChangeLikeRequest(authToken: token, photoId: photoId, isLike: isLike) else { return }
+        
+        let task = URLSession.shared.data(for: request) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(_):
+                if let index = self.photos.firstIndex(where: {$0.id == photoId}) {
+                    let photo = self.photos[index]
+                    let newPhoto = Photo(id: photo.id, size: photo.size, createdAt: photo.createdAt, welcomeDescription: photo.welcomeDescription, thumbImageURL: photo.thumbImageURL, largeImageURL: photo.largeImageURL, isLiked: !photo.isLiked)
+                    self.photos[index] = newPhoto
+                }
+                completion(.success(()))
+            case .failure(let error):
+                print("🚩 ImagesListService changeLike \(error.localizedDescription) 🚩")
+                completion(.failure(error))
+            }
+            
+            self.task = nil
+        }
         self.task = task
         task.resume()
     }
