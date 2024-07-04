@@ -93,7 +93,19 @@ extension ProfileViewController {
     }
     
     @objc private func exitButtonTapp() {
-        print("Тут пока ничего нет, но кнопка нажимается =)")
+        showLogoutAlert()
+    }
+    
+    private func showLogoutAlert() {
+        let alert = UIAlertController(title: "Пока, пока!", message: "Уверены что хотите выйти?", preferredStyle: .alert)
+        let NoAction = UIAlertAction(title: "Нет", style: .cancel)
+        let yesAction = UIAlertAction(title: "Да", style: .default) { [weak self] _ in
+            guard let self else {return}
+            ProfileLogoutService.shared.logout()
+        }
+        alert.addAction(yesAction)
+        alert.addAction(NoAction)
+        self.present(alert, animated: true)
     }
     
     private func configureUserNameLabel() {

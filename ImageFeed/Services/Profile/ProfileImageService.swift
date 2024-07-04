@@ -47,4 +47,11 @@ final class ProfileImageService {
         self.task = task
         task.resume()
     }
+    
+    func deleteProfileImage() {
+        self.avatarURL = nil
+        self.lastUsername = nil
+        self.task?.cancel()
+        self.task = nil
+    }
 }

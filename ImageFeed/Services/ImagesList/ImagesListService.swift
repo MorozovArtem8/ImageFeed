@@ -42,24 +42,10 @@ final class ImagesListService: ImagesListServiceProtocol {
         guard let request = makePhotosRequest(authToken: token, nextPage: nextPage) else {
             return}
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                let httpResponse = response as? HTTPURLResponse
-                print(NetworkError.httpStatusCode(httpResponse?.statusCode ?? 0))
-                return
-            }
-            
-            guard let data = data else {return}
-            
-            do {
-                let photosJsonArray = try JSONDecoder().decode([PhotoResult].self, from: data)
-                
+        let task = URLSession.shared.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
+            guard let self else {return}
+            switch result {
+            case .success(let photosJsonArray):
                 for photo in photosJsonArray {
                     let id = photo.id
                     let size = CGSize(width: Double(photo.width), height: Double(photo.height))
@@ -71,24 +57,35 @@ final class ImagesListService: ImagesListServiceProtocol {
                     let isLiked = photo.isLiked
                     
                     let photo = Photo(id: id, size: size, createdAt: createdAt, welcomeDescription: welcomeDescription, thumbImageURL: thumbImageURL, largeImageURL: largeImageURL, isLiked: isLiked)
-                    DispatchQueue.main.async { [weak self] in
-                        self?.photos.append(photo)
+                    
+                    let photoAlreadyInArray = self.photos.contains { photo1 in
+                        photo1.id == photo.id
                     }
+                    //Удаляем повторяющиеся фото которые отдал сервер
+                    if !photoAlreadyInArray {
+                        self.photos.append(photo)
+                    }
+                    
                 }
                 
                 NotificationCenter.default.post(name: ImagesListService.didChangeNotification, object: self)
+                
+            case .failure(let error):
+                print("🚩 FetchPhotosNextPage Ошибка декодирования: \(error.localizedDescription)")
             }
-            catch {
-                print("Ошибка декодирования: \(error.localizedDescription), Данные: \(String(data: data, encoding: .utf8) ?? "")")
-            }
-            
             self.task = nil
             self.lastLoadedPage = nextPage
         }
         
-        
         self.task = task
         task.resume()
+    }
+    
+    func deleteImageListService() {
+        self.photos = []
+        self.lastLoadedPage = nil
+        self.task?.cancel()
+        self.task = nil
     }
 }
 //MARK: Like/Unlike photo service
@@ -100,13 +97,13 @@ extension ImagesListService {
         
         var request = URLRequest(url: url)
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
-        request.httpMethod = isLike ? "DELETE" : "POST" 
+        request.httpMethod = isLike ? "DELETE" : "POST"
         return request
     }
     
     func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
         guard task == nil,
-        let token = storage?.getToken() else { return }
+              let token = storage?.getToken() else { return }
         assert(Thread.isMainThread)
         
         guard let request = makeChangeLikeRequest(authToken: token, photoId: photoId, isLike: isLike) else { return }

@@ -5,6 +5,11 @@ protocol ImagesListCellDelegate: AnyObject {
 }
 
 final class ImagesListViewController: UIViewController {
+    
+    deinit {
+        print("deinit ImagesListViewController")
+    }
+    
     private weak var tableView: UITableView?
     private var imagesListService: ImagesListServiceProtocol?
     private var imagesListServiceObserver: NSObjectProtocol?

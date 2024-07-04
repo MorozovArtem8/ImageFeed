@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 final class SingleImageViewController: UIViewController {
     private weak var singleImageView: UIImageView?
@@ -26,11 +27,29 @@ final class SingleImageViewController: UIViewController {
     private func loadImage() {
         UIBlockingProgressHUD.show()
         guard let largeURL = largeURL else {return}
-        singleImageView?.kf.setImage(with: largeURL) { [weak self] _ in
-            self?.configureScrollViewSettings()
-            self?.rescaleAndCenterImageInScrollView(image: self?.singleImageView?.image ?? UIImage())
+        singleImageView?.kf.setImage(with: largeURL) { [weak self] result in
+            guard let self else { return }
             UIBlockingProgressHUD.dismiss()
+            switch result{
+            case .success(let resultImage):
+                self.configureScrollViewSettings()
+                self.rescaleAndCenterImageInScrollView(image: resultImage.image)
+            case .failure(_):
+                self.showError()
+            }
         }
+    }
+    
+    private func showError() {
+        let alert = UIAlertController(title: "Что-то пошло не так", message: "Попробовать ещё раз?", preferredStyle: .alert)
+        let NoAction = UIAlertAction(title: "Не надо", style: .default)
+        let againAction = UIAlertAction(title: "Повторить", style: .default) { [weak self] _ in
+            guard let self else {return}
+            loadImage()
+        }
+        alert.addAction(NoAction)
+        alert.addAction(againAction)
+        self.present(alert, animated: true)
     }
     
     private func configureScrollViewSettings() {
@@ -125,7 +144,7 @@ private extension SingleImageViewController {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .ypBlack
         scrollView.delegate = self
-        scrollView.minimumZoomScale = 0.1
+        scrollView.minimumZoomScale = 0.2
         scrollView.maximumZoomScale = 1.25
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
