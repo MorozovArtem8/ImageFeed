@@ -1,4 +1,5 @@
 import UIKit
+import ProgressHUD
 import SwiftKeychainWrapper
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -6,6 +7,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        ProgressHUD.animationType = .circleRotateChase
+        ProgressHUD.colorHUD = .clear
+        
         //Удаление токена из Keychain при первом запуске приложения после переустановки
         if !UserDefaults.standard.bool(forKey: "hasLaunchedBefore") {
             UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")

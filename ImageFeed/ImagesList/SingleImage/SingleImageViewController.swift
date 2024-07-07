@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 final class SingleImageViewController: UIViewController {
     private weak var singleImageView: UIImageView?
@@ -6,15 +7,9 @@ final class SingleImageViewController: UIViewController {
     private weak var backButton: UIButton?
     private weak var sharedButton: UIButton?
     
+    var largeURL: URL?
+    
     private var currentImageZoomScale: CGFloat = 0 // Переменная для хранения параметра дефолтного скейла конкретной картинки (для функции зума по двойному тапу возвращаем в исходное состояние после увеличения)
-    var image: UIImage? {
-        didSet {
-            guard isViewLoaded else {return}
-            guard let image else {return}
-            singleImageView?.image = image
-            rescaleAndCenterImageInScrollView(image: image)
-        }
-    }
     
     private lazy var zoomingTap: UITapGestureRecognizer = {
         let zoomingTap = UITapGestureRecognizer(target: self, action: #selector(handleZoomingTap))
@@ -25,11 +20,40 @@ final class SingleImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        loadImage()
         
     }
     
+    private func loadImage() {
+        UIBlockingProgressHUD.show()
+        guard let largeURL = largeURL else {return}
+        singleImageView?.kf.setImage(with: largeURL) { [weak self] result in
+            guard let self else { return }
+            UIBlockingProgressHUD.dismiss()
+            switch result{
+            case .success(let resultImage):
+                self.configureScrollViewSettings()
+                self.rescaleAndCenterImageInScrollView(image: resultImage.image)
+            case .failure(_):
+                self.showError()
+            }
+        }
+    }
+    
+    private func showError() {
+        let alert = UIAlertController(title: "Что-то пошло не так", message: "Попробовать ещё раз?", preferredStyle: .alert)
+        let NoAction = UIAlertAction(title: "Не надо", style: .default)
+        let againAction = UIAlertAction(title: "Повторить", style: .default) { [weak self] _ in
+            guard let self else {return}
+            loadImage()
+        }
+        alert.addAction(NoAction)
+        alert.addAction(againAction)
+        self.present(alert, animated: true)
+    }
+    
     private func configureScrollViewSettings() {
-        guard let image,
+        guard let image = singleImageView?.image,
               let singleImageView else {return}
         
         singleImageView.image = image
@@ -93,7 +117,7 @@ extension SingleImageViewController: UIScrollViewDelegate {
         let heightScale = visibleRectSize.height / image.size.height
         let scale = min(maxZoomScale, max(minZoomScale, min(widthScale, heightScale)))
         currentImageZoomScale = scale
-        scrollView.setZoomScale(scale, animated: true)
+        scrollView.setZoomScale(scale, animated: false)
         scrollView.layoutIfNeeded()
         let newContentSize = scrollView.contentSize
         
@@ -101,7 +125,7 @@ extension SingleImageViewController: UIScrollViewDelegate {
         let y = (newContentSize.height - visibleRectSize.height) / 2
         
         scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
-        
+        scrollView.layoutIfNeeded()
     }
     
 }
@@ -141,7 +165,6 @@ private extension SingleImageViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(imageView)
         self.singleImageView = imageView
-        configureScrollViewSettings()
     }
     
     func configureBackButton() {
@@ -186,7 +209,7 @@ private extension SingleImageViewController {
     }
     
     @objc func didTapSharedButton() {
-        guard let image else {return}
+        guard let image = singleImageView?.image else {return}
         let share = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         present(share, animated: true)
         

@@ -29,8 +29,7 @@ final class ProfileViewController: UIViewController {
         guard let profileImageUrl = ProfileImageService.shared.avatarURL,
               let url = URL(string: profileImageUrl)
         else {return}
-        let process = RoundCornerImageProcessor(cornerRadius: 35)
-        profilePhotoImageView?.kf.setImage(with: url, placeholder: UIImage(systemName: "person.crop.circle.fill"), options: [.processor((process))])
+        profilePhotoImageView?.kf.setImage(with: url, placeholder: UIImage(systemName: "person.crop.circle.fill"))
         
     }
     
@@ -55,6 +54,7 @@ extension ProfileViewController {
     private func configureProfilePhotoImageView() {
         let profilePhotoImageView = UIImageView()
         profilePhotoImageView.translatesAutoresizingMaskIntoConstraints = false
+        profilePhotoImageView.image = UIImage(systemName: "person.crop.circle.fill")
         profilePhotoImageView.tintColor = .gray
         profilePhotoImageView.layer.cornerRadius = 35
         profilePhotoImageView.clipsToBounds = true
@@ -93,7 +93,18 @@ extension ProfileViewController {
     }
     
     @objc private func exitButtonTapp() {
-        print("Тут пока ничего нет, но кнопка нажимается =)")
+        showLogoutAlert()
+    }
+    
+    private func showLogoutAlert() {
+        let alert = UIAlertController(title: "Пока, пока!", message: "Уверены что хотите выйти?", preferredStyle: .alert)
+        let NoAction = UIAlertAction(title: "Нет", style: .cancel)
+        let yesAction = UIAlertAction(title: "Да", style: .default) { _ in
+            ProfileLogoutService.shared.logout()
+        }
+        alert.addAction(yesAction)
+        alert.addAction(NoAction)
+        self.present(alert, animated: true)
     }
     
     private func configureUserNameLabel() {
