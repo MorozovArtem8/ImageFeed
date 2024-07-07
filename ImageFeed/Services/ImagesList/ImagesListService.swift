@@ -10,7 +10,11 @@ protocol ImagesListServiceProtocol {
 final class ImagesListService: ImagesListServiceProtocol {
     init() {
         storage = OAuth2TokenStorageImplementation()
+        
     }
+    
+    private let dateFormatter = ISO8601DateFormatter()
+    
     private var storage: OAuth2TokenStorage?
     static let didChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
     
@@ -50,14 +54,16 @@ final class ImagesListService: ImagesListServiceProtocol {
                 for photo in photosJsonArray {
                     let id = photo.id
                     let size = CGSize(width: Double(photo.width), height: Double(photo.height))
-                    let dateFormatter = ISO8601DateFormatter()
-                    let createdAt: Date? = dateFormatter.date(from: photo.createdAt) ?? nil
+            
+                    let createdAt = dateFormatter.date(from: photo.createdAt)
+                    
+                    
                     let welcomeDescription = photo.description
                     let thumbImageURL = photo.urls.thumb
                     let largeImageURL = photo.urls.full
                     let isLiked = photo.isLiked
                     
-                    let photo = Photo(id: id, size: size, createdAt: createdAt, welcomeDescription: welcomeDescription, thumbImageURL: thumbImageURL, largeImageURL: largeImageURL, isLiked: isLiked)
+                    let photo = Photo(id: id, size: size, createdAt: createdAt ?? Date(), welcomeDescription: welcomeDescription, thumbImageURL: thumbImageURL, largeImageURL: largeImageURL, isLiked: isLiked)
                     
                     if !self.photos.contains(where: {$0.id == photo.id}) {
                         self.photos.append(photo)

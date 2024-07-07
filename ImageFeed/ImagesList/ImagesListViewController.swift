@@ -18,8 +18,9 @@ final class ImagesListViewController: UIViewController {
     
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .long
+        formatter.dateStyle = .medium
         formatter.timeStyle = .none
+        formatter.locale = .current
         return formatter
     }()
     
@@ -90,12 +91,16 @@ extension ImagesListViewController: UITableViewDataSource {
         }
         imageListCell.delegate = self
         let urlForDownloadImage = URL(string: photos[indexPath.row].thumbImageURL) ?? URL(fileURLWithPath: "")
-        let cellDate = dateFormatter.string(from: Date())
         let isLiked = photos[indexPath.row].isLiked
         
-        imageListCell.configureCell(urlForDownloadImage: urlForDownloadImage, date: cellDate, isLiked: isLiked)
-        
+        if let dateNotNil = photos[indexPath.row].createdAt {
+            let newDateString = dateFormatter.string(from: dateNotNil)
+            imageListCell.configureCell(urlForDownloadImage: urlForDownloadImage, date: newDateString, isLiked: isLiked)
+            return imageListCell
+        }
+        imageListCell.configureCell(urlForDownloadImage: urlForDownloadImage, date: "", isLiked: isLiked)
         return imageListCell
+        
     }
 }
 
