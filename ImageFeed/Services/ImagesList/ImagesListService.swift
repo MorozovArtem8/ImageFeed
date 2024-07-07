@@ -52,15 +52,15 @@ final class ImagesListService: ImagesListServiceProtocol {
             case .success(let photosJsonArray):
                 
                 for photo in photosJsonArray {
+                    guard let thumbImageURL = URL(string: photo.urls.thumb),
+                          let largeImageURL = URL(string: photo.urls.full) else {return}
+                    
                     let id = photo.id
                     let size = CGSize(width: Double(photo.width), height: Double(photo.height))
-            
+                    
                     let createdAt = dateFormatter.date(from: photo.createdAt)
                     
-                    
                     let welcomeDescription = photo.description
-                    let thumbImageURL = photo.urls.thumb
-                    let largeImageURL = photo.urls.full
                     let isLiked = photo.isLiked
                     
                     let photo = Photo(id: id, size: size, createdAt: createdAt ?? Date(), welcomeDescription: welcomeDescription, thumbImageURL: thumbImageURL, largeImageURL: largeImageURL, isLiked: isLiked)

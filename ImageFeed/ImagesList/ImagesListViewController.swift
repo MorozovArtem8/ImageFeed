@@ -90,7 +90,7 @@ extension ImagesListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         imageListCell.delegate = self
-        let urlForDownloadImage = URL(string: photos[indexPath.row].thumbImageURL) ?? URL(fileURLWithPath: "")
+        let urlForDownloadImage = photos[indexPath.row].thumbImageURL
         let isLiked = photos[indexPath.row].isLiked
         
         if let dateNotNil = photos[indexPath.row].createdAt {
@@ -108,7 +108,7 @@ extension ImagesListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let singleImageVC = SingleImageViewController()
-        singleImageVC.largeURL = URL(string: photos[indexPath.row].largeImageURL)
+        singleImageVC.largeURL = photos[indexPath.row].largeImageURL
         singleImageVC.modalPresentationStyle = .fullScreen
         present(singleImageVC, animated: true)
     }
