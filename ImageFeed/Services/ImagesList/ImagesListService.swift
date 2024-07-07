@@ -46,6 +46,7 @@ final class ImagesListService: ImagesListServiceProtocol {
             guard let self else {return}
             switch result {
             case .success(let photosJsonArray):
+                
                 for photo in photosJsonArray {
                     let id = photo.id
                     let size = CGSize(width: Double(photo.width), height: Double(photo.height))
@@ -58,14 +59,10 @@ final class ImagesListService: ImagesListServiceProtocol {
                     
                     let photo = Photo(id: id, size: size, createdAt: createdAt, welcomeDescription: welcomeDescription, thumbImageURL: thumbImageURL, largeImageURL: largeImageURL, isLiked: isLiked)
                     
-                    let photoAlreadyInArray = self.photos.contains { photo1 in
-                        photo1.id == photo.id
-                    }
-                    //Удаляем повторяющиеся фото которые отдал сервер
-                    if !photoAlreadyInArray {
+                    if !self.photos.contains(where: {$0.id == photo.id}) {
                         self.photos.append(photo)
                     }
-                    
+
                 }
                 
                 NotificationCenter.default.post(name: ImagesListService.didChangeNotification, object: self)
