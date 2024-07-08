@@ -66,7 +66,6 @@ extension ProfileViewController {
             profilePhotoImageView.widthAnchor.constraint(equalToConstant: 70),
             profilePhotoImageView.heightAnchor.constraint(equalToConstant: 70)
         ])
-        
         self.profilePhotoImageView = profilePhotoImageView
     }
     

@@ -2,26 +2,20 @@ import UIKit
 
 final class GradientView: UIView {
     
-    var startColor: UIColor? {
-        didSet {
-            setupGradient()
-        }
-    }
-    var endColor: UIColor? {
-        didSet {
-            setupGradient()
-        }
-    }
+    private var startColor: UIColor
+    private var endColor: UIColor
     
     private let gradientLayer = CAGradientLayer()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(startColor: UIColor, endColor: UIColor) {
+        self.startColor = startColor
+        self.endColor = endColor
+        super.init(frame: .zero)
+        setupGradient()
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupGradient()
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func layoutSubviews() {
@@ -32,8 +26,6 @@ final class GradientView: UIView {
     }
     
     private func setupGradient() {
-        guard let startColor = startColor, let endColor = endColor else {return}
-        
         self.layer.addSublayer(gradientLayer)
         gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
     }

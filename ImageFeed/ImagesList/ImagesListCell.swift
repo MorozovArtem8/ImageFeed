@@ -96,10 +96,8 @@ private extension ImagesListCell {
     func configureGradientView() {
         guard let cellImageView = cellImageView else {return}
         
-        let gradientView = GradientView()
+        let gradientView = GradientView(startColor: UIColor("#1A1B22", alpha: 0), endColor: UIColor("#1A1B22", alpha: 80))
         gradientView.translatesAutoresizingMaskIntoConstraints = false
-        gradientView.startColor = UIColor("#1A1B22", alpha: 0)
-        gradientView.endColor = UIColor("#1A1B22", alpha: 60)
         contentView.addSubview(gradientView)
         
         NSLayoutConstraint.activate([
