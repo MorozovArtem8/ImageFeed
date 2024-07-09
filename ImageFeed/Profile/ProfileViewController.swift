@@ -10,6 +10,7 @@ final class ProfileViewController: UIViewController {
     private weak var exitButton: UIButton?
     
     private var profileImageServiceObserver: NSObjectProtocol?
+    private var displayGradient: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +26,26 @@ final class ProfileViewController: UIViewController {
         updateAvatar()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if displayGradient {
+            profilePhotoImageView?.addCustomGradient()
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if displayGradient {
+            profilePhotoImageView?.addCustomGradient()
+        }
+    }
+    
     private func updateAvatar() {
         guard let profileImageUrl = ProfileImageService.shared.avatarURL,
               let url = URL(string: profileImageUrl)
         else {return}
         profilePhotoImageView?.kf.setImage(with: url, placeholder: UIImage(systemName: "person.crop.circle.fill"))
+        self.displayGradient = false
+        profilePhotoImageView?.layer.sublayers?.removeAll()
         
     }
     

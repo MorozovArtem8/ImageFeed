@@ -1,5 +1,11 @@
 import UIKit
 
+enum FeedCellImageState {
+    case loading
+    case error
+    case finished(UIImage)
+}
+
 final class ImagesListCell: UITableViewCell {
     private weak var cellImageView: UIImageView?
     private weak var cellLikeButton: UIButton?
@@ -9,8 +15,10 @@ final class ImagesListCell: UITableViewCell {
     weak var delegate: ImagesListCellDelegate?
     
     static let reuseIdentifier = "ImagesListCell"
+    private var state: FeedCellImageState
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        self.state = .loading
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureUI()
     }
@@ -18,6 +26,24 @@ final class ImagesListCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         cellImageView?.kf.cancelDownloadTask()
+        cellLikeButton?.setBackgroundImage(nil, for: .normal)
+        cellDateLabel?.text = nil
+        gradientView = nil
+        gradientView?.layer.sublayers?.removeAll()
+        cellImageView?.layer.sublayers?.removeAll()
+        cellImageView?.image = nil
+        state = .loading
+    }
+    
+    override func layoutSubviews() {
+        switch state {
+        case .loading:
+            cellImageView?.addCustomGradientForCell()
+        case .error: break
+            
+        case .finished(_): break
+            
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -25,19 +51,31 @@ final class ImagesListCell: UITableViewCell {
     }
     
     func configureCell(urlForDownloadImage: URL, date: String, isLiked: Bool) {
-        cellDateLabel?.backgroundColor = UIColor.clear
-        cellDateLabel?.text = date
         
-        cellImageView?.kf.indicatorType = .activity
-        cellImageView?.kf.setImage(with: urlForDownloadImage, placeholder: UIImage(named: "Stub_card"))
-        
-        let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
-        cellLikeButton?.setImage(likeImage, for: .normal)
+        cellImageView?.kf.setImage(with: urlForDownloadImage) { [weak self] result in
+            guard let self else {return}
+            switch result {
+            case .success(let value):
+                configureGradientView()
+                configureCellDateLabel()
+                state = .finished(UIImage())
+                cellImageView?.image = value.image
+                self.cellDateLabel?.backgroundColor = UIColor.clear
+                self.cellDateLabel?.text = date
+                let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
+                self.cellLikeButton?.setBackgroundImage(likeImage, for: .normal)
+                cellImageView?.layer.sublayers?.removeAll()
+            case .failure(_):
+                state = .error
+                cellImageView?.image = UIImage(named: "Stub_card")
+                cellImageView?.layer.sublayers?.removeAll()
+            }
+        }
     }
     
     func setIsLiked(isLikedUpdate: Bool) {
         let likeImage = isLikedUpdate ? UIImage(named: "like_button_off") : UIImage(named: "like_button_on")
-        cellLikeButton?.setImage(likeImage, for: .normal)
+        cellLikeButton?.setBackgroundImage(likeImage, for: .normal)
     }
 }
 
@@ -49,8 +87,7 @@ private extension ImagesListCell {
         backgroundColor = .clear
         configureCellImageView()
         configureCellLikeButton()
-        configureGradientView()
-        configureCellDateLabel()
+        
     }
     
     func configureCellImageView() {
@@ -74,7 +111,6 @@ private extension ImagesListCell {
         guard let cellImageView = cellImageView else {return}
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "like_button_on"), for: .normal)
         button.addTarget(self, action: #selector(self.didTapLikeButton), for: .touchUpInside)
         
         contentView.addSubview(button)
