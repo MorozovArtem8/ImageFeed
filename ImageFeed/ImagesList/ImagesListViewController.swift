@@ -73,6 +73,7 @@ extension ImagesListViewController: ImagesListCellDelegate {
                 print("🚩 ImageListCellDidTapLike Ошибка запроса \(error.localizedDescription)")
                 //TODO: Показать ошибку с использованием UIAlertController
             }
+            
         })
     }
 }

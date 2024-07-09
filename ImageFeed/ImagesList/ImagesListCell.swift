@@ -89,6 +89,21 @@ private extension ImagesListCell {
     }
     
     @objc func didTapLikeButton() {
+        UIView.animate(withDuration: 0.6, delay: 0) {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.2) {
+                self.cellLikeButton?.transform = CGAffineTransform(scaleX: 2, y: 2)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.2) {
+                self.cellLikeButton?.transform = .identity
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.2) {
+                self.cellLikeButton?.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.6, relativeDuration: 0.2) {
+                self.cellLikeButton?.transform = .identity
+            }
+        }
+        
         delegate?.imageListCellDidTapLike(self)
         
     }

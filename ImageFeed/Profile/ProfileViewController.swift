@@ -13,6 +13,8 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let cache = ImageCache.default
+        cache.clearDiskCache()
         configureUI()
         updateProfileDetails(profile: ProfileService.shared.profile ?? Profile(userName: "", firstName: "", lastName: "", bio: ""))
         
@@ -24,8 +26,6 @@ final class ProfileViewController: UIViewController {
     }
     
     private func updateAvatar() {
-        let cache = ImageCache.default
-        cache.clearDiskCache()
         guard let profileImageUrl = ProfileImageService.shared.avatarURL,
               let url = URL(string: profileImageUrl)
         else {return}
