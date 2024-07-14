@@ -114,9 +114,14 @@ private extension AuthViewController {
     }
     
     @objc func loginButtonTapp() {
-        let webViewVC = WebViewViewController()
-        webViewVC.delegate = self
-        webViewVC.modalPresentationStyle = .fullScreen
-        present(webViewVC, animated: true)
+        let webViewPresenter = WebViewPresenter(authHelper: AuthHelper())
+        let webViewViewController = WebViewViewController()
+        
+        webViewViewController.presenter = webViewPresenter
+        webViewPresenter.view = webViewViewController
+        webViewViewController.delegate = self
+       
+        webViewViewController.modalPresentationStyle = .fullScreen
+        present(webViewViewController, animated: true)
     }
 }
