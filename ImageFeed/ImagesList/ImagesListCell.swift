@@ -125,6 +125,12 @@ private extension ImagesListCell {
     }
     
     @objc func didTapLikeButton() {
+        animateLikeButtonTap()
+        delegate?.imageListCellDidTapLike(self)
+        
+    }
+    
+    func animateLikeButtonTap() {
         UIView.animate(withDuration: 0.6, delay: 0) {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.2) {
                 self.cellLikeButton?.transform = CGAffineTransform(scaleX: 2, y: 2)
@@ -139,9 +145,6 @@ private extension ImagesListCell {
                 self.cellLikeButton?.transform = .identity
             }
         }
-        
-        delegate?.imageListCellDidTapLike(self)
-        
     }
     
     func configureGradientView() {

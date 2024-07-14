@@ -8,10 +8,10 @@ extension UIView {
         gradient.locations = [0, 0.1, 0.3]
         
         gradient.colors = [
-            UIColor(red: 0.682, green: 0.686, blue: 0.706, alpha: 1).cgColor,
-            UIColor(red: 0.531, green: 0.533, blue: 0.553, alpha: 1).cgColor,
-            UIColor(red: 0.431, green: 0.433, blue: 0.453, alpha: 1).cgColor
-        ]
+                    UIColor(red: 0.65, green: 0.65, blue: 0.67, alpha: 1).cgColor,
+                    UIColor(red: 0.60, green: 0.60, blue: 0.62, alpha: 1).cgColor,
+                    UIColor(red: 0.55, green: 0.55, blue: 0.57, alpha: 1).cgColor
+                ]
         
         gradient.startPoint = CGPoint(x: 0, y: 0.5)
         gradient.endPoint = CGPoint(x: 1, y: 0.5)
@@ -34,10 +34,10 @@ extension UIView {
         gradient.locations = [0, 0.1, 0.3]
         
         gradient.colors = [
-            UIColor(red: 0.682, green: 0.686, blue: 0.706, alpha: 1).cgColor,
-            UIColor(red: 0.531, green: 0.533, blue: 0.553, alpha: 1).cgColor,
-            UIColor(red: 0.431, green: 0.433, blue: 0.453, alpha: 1).cgColor
-        ]
+                    UIColor(red: 0.65, green: 0.65, blue: 0.67, alpha: 1).cgColor,
+                    UIColor(red: 0.60, green: 0.60, blue: 0.62, alpha: 1).cgColor,
+                    UIColor(red: 0.55, green: 0.55, blue: 0.57, alpha: 1).cgColor
+                ]
         
         gradient.startPoint = CGPoint(x: 0, y: 0.5)
         gradient.endPoint = CGPoint(x: 1, y: 0.5)
