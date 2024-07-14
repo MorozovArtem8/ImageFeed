@@ -56,5 +56,38 @@ final class WebViewTests: XCTestCase {
         //then
         XCTAssertTrue(shouldHideProgress)
     }
+    
+    func testAuthHelperAuthURL() {
+        //given
+        let configuration = AuthConfiguration.standard
+        let authHelper = AuthHelper()
+        
+        //when
+        let url = authHelper.authURL()
+        let urlString = url!.absoluteString
+        
+        //then
+        XCTAssertTrue(urlString.contains(configuration.unsplashAuthorizeURLString))
+        XCTAssertTrue(urlString.contains(configuration.accessKey))
+        XCTAssertTrue(urlString.contains(configuration.redirectURI))
+        XCTAssertTrue(urlString.contains("code"))
+        XCTAssertTrue(urlString.contains(configuration.accessScope))
+    }
+    
+    func testCodeFromURL() {
+        //given
+        let authHelper = AuthHelper()
+        var urlComponents = URLComponents(string: "https://unsplash.com/oauth/authorize/native")
+        urlComponents?.queryItems = [
+            URLQueryItem(name: "code", value: "test code"),
+        ]
+        guard let url = urlComponents?.url else {return}
+        
+        //when
+        let testCode = authHelper.code(from: url)
+        
+        //then
+        XCTAssertEqual(testCode, "test code")
+    }
 
 }
