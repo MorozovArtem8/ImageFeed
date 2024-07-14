@@ -10,9 +10,12 @@ final class ProfileViewController: UIViewController {
     private weak var exitButton: UIButton?
     
     private var profileImageServiceObserver: NSObjectProtocol?
+    private var displayGradient: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let cache = ImageCache.default
+        cache.clearDiskCache()
         configureUI()
         updateProfileDetails(profile: ProfileService.shared.profile ?? Profile(userName: "", firstName: "", lastName: "", bio: ""))
         
@@ -23,13 +26,26 @@ final class ProfileViewController: UIViewController {
         updateAvatar()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if displayGradient {
+            profilePhotoImageView?.addCustomGradient()
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if displayGradient {
+            profilePhotoImageView?.addCustomGradient()
+        }
+    }
+    
     private func updateAvatar() {
-        let cache = ImageCache.default
-        cache.clearDiskCache()
         guard let profileImageUrl = ProfileImageService.shared.avatarURL,
               let url = URL(string: profileImageUrl)
         else {return}
         profilePhotoImageView?.kf.setImage(with: url, placeholder: UIImage(systemName: "person.crop.circle.fill"))
+        self.displayGradient = false
+        profilePhotoImageView?.layer.sublayers?.removeAll()
         
     }
     
@@ -66,7 +82,6 @@ extension ProfileViewController {
             profilePhotoImageView.widthAnchor.constraint(equalToConstant: 70),
             profilePhotoImageView.heightAnchor.constraint(equalToConstant: 70)
         ])
-        
         self.profilePhotoImageView = profilePhotoImageView
     }
     
