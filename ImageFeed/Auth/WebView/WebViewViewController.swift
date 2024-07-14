@@ -3,12 +3,11 @@ import WebKit
 
 public protocol WebViewViewControllerProtocol: AnyObject {
     var presenter: WebViewPresenterProtocol? {get set}
+    
     func load(request: URLRequest)
     func setProgressValue(_ newValue: Float)
     func setProgressHidden(_ isHidden: Bool)
 }
-
-
 
 protocol WebViewViewControllerDelegate: AnyObject {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String)
@@ -18,7 +17,6 @@ protocol WebViewViewControllerDelegate: AnyObject {
 final class WebViewViewController: UIViewController & WebViewViewControllerProtocol {
     
     var presenter: WebViewPresenterProtocol?
-    
     
     private weak var webView: WKWebView?
     private weak var progressView: UIProgressView?
@@ -36,16 +34,19 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
         presenter?.viewDidLoad()
         estimatedProgressObservation = webView?.observe(\.estimatedProgress) { [weak self] _, _  in
             guard let self = self,
-            let webView = webView else {return}
+                  let webView = webView else {return}
             
             presenter?.didUpdateProgressValue(webView.estimatedProgress)
         }
-        
-        
     }
     
     deinit {
         estimatedProgressObservation?.invalidate()
+    }
+    
+    //MARK: WebViewViewControllerProtocol func
+    func load(request: URLRequest) {
+        webView?.load(request)
     }
     
     func setProgressValue(_ newValue: Float) {
@@ -56,13 +57,8 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
         progressView?.isHidden = isHidden
     }
     
-    
-    
-    func load(request: URLRequest) {
-        webView?.load(request)
-    }
-    
 }
+
 //MARK: WKNavigationDelegate func
 extension WebViewViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
