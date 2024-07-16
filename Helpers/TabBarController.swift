@@ -3,8 +3,9 @@ import UIKit
 final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        let imagesViewPresenter = ImageListViewPresenter()
-        let imagesListViewController = ImagesListViewController(presenter: imagesViewPresenter)
+        let imagesViewPresenter = ImagesListViewPresenter()
+        let imagesListViewController = ImagesListViewController()
+        imagesListViewController.presenter = imagesViewPresenter
         imagesViewPresenter.view = imagesListViewController
         
         let profileViewController = ProfileViewController()

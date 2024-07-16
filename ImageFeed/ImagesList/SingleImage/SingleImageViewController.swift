@@ -24,6 +24,17 @@ final class SingleImageViewController: UIViewController {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeImageFromCache()
+    }
+    
+    private func removeImageFromCache() {
+        guard let largeURL = largeURL else {return}
+        let cache = ImageCache.default
+        cache.removeImage(forKey: largeURL.absoluteString)
+    }
+    
     private func loadImage() {
         UIBlockingProgressHUD.show()
         guard let largeURL = largeURL else {return}

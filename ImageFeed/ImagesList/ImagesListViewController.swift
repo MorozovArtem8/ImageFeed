@@ -1,7 +1,7 @@
 import UIKit
 
-protocol ImagesListViewControllerProtocol {
-    var presenter: ImageListViewPresenterProtocol {get set}
+public protocol ImagesListViewControllerProtocol {
+    var presenter: ImagesListViewPresenterProtocol? {get set}
     
     func updateTableViewAnimated(indexPath: [IndexPath])
     func updateCell(at indexPath: IndexPath, isLiked: Bool)
@@ -13,58 +13,53 @@ protocol ImagesListCellDelegate: AnyObject {
 
 final class ImagesListViewController: UIViewController & ImagesListViewControllerProtocol {
     
-    var presenter: ImageListViewPresenterProtocol
+    var presenter: ImagesListViewPresenterProtocol?
     private weak var tableView: UITableView?
-    
-    init(presenter: ImageListViewPresenterProtocol) {
-        self.presenter = presenter
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        presenter.viewDidLoad()
+        presenter?.viewDidLoad()
         
     }
-    
+    //MARK: ImagesListViewControllerProtocol func
     func updateTableViewAnimated(indexPath: [IndexPath]) {
         self.tableView?.performBatchUpdates {
-                tableView?.insertRows(at: indexPath, with: .automatic)
-            } completion: { _ in}
+            tableView?.insertRows(at: indexPath, with: .automatic)
+        } completion: { _ in}
     }
     
     func updateCell(at indexPath: IndexPath, isLiked: Bool) {
         guard let cell = tableView?.cellForRow(at: indexPath) as? ImagesListCell else {return}
         cell.setIsLiked(isLikedUpdate: isLiked)
     }
+    
 }
 
 //MARK: ImagesListCellDelegate func
 extension ImagesListViewController: ImagesListCellDelegate {
     func imageListCellDidTapLike(_ cell: ImagesListCell) {
         guard let indexPath = tableView?.indexPath(for: cell) else {return}
-        presenter.imageListCellDidTapLike(at: indexPath)
+        presenter?.imageListCellDidTapLike(at: indexPath)
     }
 }
 
 extension ImagesListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let presenter = presenter else {return 0}
         return presenter.photos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let presenter = presenter else {return UITableViewCell()}
         let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reuseIdentifier, for: indexPath)
         
         guard let imageListCell = cell as? ImagesListCell else {
             return UITableViewCell()
         }
         imageListCell.delegate = self
+        
         let urlForDownloadImage = presenter.photos[indexPath.row].thumbImageURL
         let isLiked = presenter.photos[indexPath.row].isLiked
         
@@ -83,19 +78,26 @@ extension ImagesListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let singleImageVC = SingleImageViewController()
-        singleImageVC.largeURL = presenter.photos[indexPath.row].largeImageURL
+        singleImageVC.largeURL = presenter?.photos[indexPath.row].largeImageURL
         singleImageVC.modalPresentationStyle = .fullScreen
         present(singleImageVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return presenter.calculateHeightForRow(tableView, at: indexPath)
+        guard let presenter = presenter else {return 0}
+        
+        let imageViewConstraints = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
+        let imageViewWidth = tableView.bounds.width - imageViewConstraints.left - imageViewConstraints.right
+        let widthRatio = imageViewWidth / presenter.photos[indexPath.row].size.width
+        let imageViewHeight = widthRatio * presenter.photos[indexPath.row].size.height + 8
+        
+        return imageViewHeight
         
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row + 1 == presenter.photos.count {
-            presenter.fetchNextPage()
+        if indexPath.row + 1 == presenter?.photos.count {
+            presenter?.fetchNextPage()
         }
     }
 }

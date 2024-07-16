@@ -6,7 +6,7 @@ enum FeedCellImageState {
     case finished(UIImage)
 }
 
-final class ImagesListCell: UITableViewCell {
+public final class ImagesListCell: UITableViewCell {
     private weak var cellImageView: UIImageView?
     private weak var cellLikeButton: UIButton?
     private weak var gradientView: UIView?
@@ -23,7 +23,7 @@ final class ImagesListCell: UITableViewCell {
         configureUI()
     }
     
-    override func prepareForReuse() {
+    public override func prepareForReuse() {
         super.prepareForReuse()
         cellImageView?.kf.cancelDownloadTask()
         cellLikeButton?.setBackgroundImage(nil, for: .normal)
@@ -35,7 +35,7 @@ final class ImagesListCell: UITableViewCell {
         state = .loading
     }
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         switch state {
         case .loading:
             cellImageView?.addCustomGradientForCell()
