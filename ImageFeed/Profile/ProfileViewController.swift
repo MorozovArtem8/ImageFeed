@@ -37,6 +37,7 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
     
     func showLogoutAlert() {
         let alert = UIAlertController(title: "Пока, пока!", message: "Уверены что хотите выйти?", preferredStyle: .alert)
+        alert.view.accessibilityIdentifier = "Alert"
         let NoAction = UIAlertAction(title: "Нет", style: .cancel)
         let yesAction = UIAlertAction(title: "Да", style: .default) { _ in
             ProfileLogoutService.shared.logout()
@@ -81,6 +82,7 @@ extension ProfileViewController {
         let exitButtonImageDefaultSF = UIImage(systemName: "ipad.and.arrow.forward") ?? UIImage()
         
         let button = UIButton()
+        button.accessibilityIdentifier = "exitButton"
         button.addTarget(self, action: #selector(self.exitButtonTapp), for: .touchUpInside)
         button.setImage(exitButtonImage ?? exitButtonImageDefaultSF, for: .normal)
         button.tintColor = .red

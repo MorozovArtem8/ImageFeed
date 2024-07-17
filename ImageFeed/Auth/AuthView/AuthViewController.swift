@@ -93,6 +93,7 @@ private extension AuthViewController {
     func configureLoginButton() {
         
         let loginButton = UIButton(type: .system)
+        loginButton.accessibilityIdentifier = "Authenticate"
         loginButton.setTitle("Войти", for: .normal)
         loginButton.backgroundColor = .white
         loginButton.tintColor = .ypBlack

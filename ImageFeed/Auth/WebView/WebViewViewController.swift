@@ -136,6 +136,7 @@ private extension WebViewViewController {
         guard let progressView = progressView else {return}
         
         let webView = WKWebView()
+        webView.accessibilityIdentifier = "UnsplashWebView"
         webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(webView)
