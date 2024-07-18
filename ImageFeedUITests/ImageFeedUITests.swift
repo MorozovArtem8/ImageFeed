@@ -1,12 +1,5 @@
-//
-//  ImageFeedUITests.swift
-//  ImageFeedUITests
-//
-//  Created by Artem Morozov on 16.07.2024.
-//
-
 import XCTest
-//import WebKit
+
 
 final class ImageFeedUITests: XCTestCase {
     
@@ -27,7 +20,7 @@ final class ImageFeedUITests: XCTestCase {
         
         loginTextField.tap()
         sleep(2)
-        loginTextField.typeText("vjhjpjaa32@yandex.ru")
+        loginTextField.typeText("")
         
         sleep(1)
         
@@ -37,7 +30,7 @@ final class ImageFeedUITests: XCTestCase {
         passwordTextField.tap()
         sleep(1)
         passwordTextField.tap()
-        passwordTextField.typeText("Vjhjpjaa321q")
+        passwordTextField.typeText("")
         
         sleep(1)
         app.toolbars.buttons["Done"].tap()
@@ -105,15 +98,5 @@ final class ImageFeedUITests: XCTestCase {
         sleep(1)
         XCTAssertTrue(app.buttons["Authenticate"].exists)
     }
-    
-    
 }
-//let passwordTextField = webView.descendants(matching: .secureTextField).element
-//XCTAssertTrue(passwordTextField.waitForExistence(timeout: 5))
-//passwordTextField.tap()
-//sleep(3)
-//XCUIApplication().toolbars.buttons["Done"].tap() // maintain the possible test fail because of keyboard lag
-//passwordTextField.tap()
-//passwordTextField.typeText("paste you password")
-//sleep(3)
-//XCUIApplication().toolbars.buttons["Done"].tap()
+
