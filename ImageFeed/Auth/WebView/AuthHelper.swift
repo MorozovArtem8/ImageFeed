@@ -32,7 +32,7 @@ final class AuthHelper: AuthHelperProtocol {
     
     func code(from url: URL) -> String? {
         if let urlComponent = URLComponents(string: url.absoluteString),
-           urlComponent.path == "/oauth/authorize/native",
+           urlComponent.path == Constants.unsplashCodeAuthorizeString,
            let items = urlComponent.queryItems,
            let codeItems = items.first(where: {$0.name == "code"}) {
             return codeItems.value

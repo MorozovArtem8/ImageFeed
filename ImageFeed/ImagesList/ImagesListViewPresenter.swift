@@ -72,13 +72,11 @@ final class ImagesListViewPresenter: ImagesListViewPresenterProtocol {
                 if let currentPhotoIsLiked = self?.photos[indexPath.row].isLiked {
                     self?.view?.updateCell(at: indexPath, isLiked: !currentPhotoIsLiked)
                 }
-                UIBlockingProgressHUD.dismiss()
             case .failure(let error):
-                UIBlockingProgressHUD.dismiss()
                 print("🚩 ImageListCellDidTapLike Ошибка запроса \(error.localizedDescription)")
                 //TODO: Показать ошибку с использованием UIAlertController
             }
-            
+            UIBlockingProgressHUD.dismiss()
         })
     }
     
