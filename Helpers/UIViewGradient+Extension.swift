@@ -1,10 +1,10 @@
 import UIKit
 
 extension UIView {
-    func addCustomGradient() {
+    func addCustomGradient(width: CGFloat, height: CGFloat) {
         checkGradientSublayers()
         let gradient = CAGradientLayer()
-        gradient.frame = CGRect(origin: .zero, size: CGSize(width: self.frame.width, height: self.frame.height))
+        gradient.frame = CGRect(origin: .zero, size: CGSize(width: width + 1, height: height + 1))
         gradient.locations = [0, 0.1, 0.3]
         
         gradient.colors = [

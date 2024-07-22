@@ -1,6 +1,6 @@
 import UIKit
 
-protocol ImagesListServiceProtocol {
+public protocol ImagesListServiceProtocol {
     var lastLoadedPage: Int? { get set }
     func fetchPhotosNextPage()
     var photos: [Photo] {get}

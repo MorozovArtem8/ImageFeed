@@ -31,7 +31,7 @@ final class ProfileService {
         let task = URLSession.shared.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
             switch result {
             case .success(let decodedData):
-                let profile = Profile(userName: decodedData.userName, firstName: decodedData.firstName, lastName: decodedData.lastName, bio: decodedData.bio)
+                let profile = Profile(userName: decodedData.userName ?? "", firstName: decodedData.firstName ?? "", lastName: decodedData.lastName ?? "", bio: decodedData.bio)
                 self?.profile = profile
                 completion(.success(profile))
             case .failure(let error):
